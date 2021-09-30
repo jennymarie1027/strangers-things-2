@@ -6,7 +6,6 @@ const NewPost = ({ posts, setPosts, API_URL, token}) => {
     const [price, setPrice] = useState(0);
     const [deliver, setDeliver] = useState(false);
 
-
     const handleNewPostSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -17,14 +16,17 @@ const NewPost = ({ posts, setPosts, API_URL, token}) => {
                     'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({
-                    title: {newPostTitle},
-                    description: {newPostBody},
-                    price: {price},
-                    willDeliver: {deliver}
+                    post: {
+                        title: newPostTitle,
+                        description: newPostBody,
+                        price: price,
+                        willDeliver: deliver
+                    }
                 })
             })
             const data = await res.json();
-            console.log(data);
+            setPosts([data.data.post]);
+            
         } catch (err) {
             console.log(err)
         }

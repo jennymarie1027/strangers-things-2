@@ -30,6 +30,18 @@ const App = () => {
         setToken('');
     }
 
+    const handleDelete = async (id) => {
+        const res = await fetch(`${API_URL}/posts/${id}`, {
+            method: "Delete",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+        await res.json();
+        setPosts(posts);
+    }
+
     return (
         <div>
             { token ? (
@@ -45,7 +57,10 @@ const App = () => {
                     /> 
                 </Route>
                <Route exact path='/posts'>
-                    <Post posts={posts}/>
+                    <Post 
+                    posts={posts}
+                    handleDelete={handleDelete}
+                    />
                </Route>
             </> 
             ) : (

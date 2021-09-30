@@ -23,8 +23,7 @@ const LoginForm = ({
                   }
                 })
               })
-            console.log(res);
-              const parsedData = await res.json();
+            const parsedData = await res.json();
             setToken(parsedData.data.token);
             window.localStorage.setItem('token', JSON.stringify(parsedData.data.token))
             setIsLoggedIn(true)
