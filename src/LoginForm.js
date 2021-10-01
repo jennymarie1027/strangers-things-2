@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import RegisterForm from './RegisterForm';
 
 const LoginForm = ({
-    username, password, setPassword, setUsername, API_URL, setToken, setIsLoggedIn, makeHeaders, token
+    username, password, setPassword, setUsername, API_URL, setToken, setIsLoggedIn, makeHeaders, token, minPasswordLength
 }) => {
 
     const [isNewUser, setIsNewUser] = useState(false)
@@ -65,7 +65,7 @@ const LoginForm = ({
             </form>
         ) : (
             <>
-                <RegisterForm makeHeaders={makeHeaders} />
+                <RegisterForm minPasswordLength={minPasswordLength} />
                 <button onClick={() => setIsNewUser(false)}>I already have a username registered</button>
             </>
         ) }

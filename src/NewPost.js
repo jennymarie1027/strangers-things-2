@@ -25,7 +25,11 @@ const NewPost = ({ posts, setPosts, API_URL, token}) => {
                 })
             })
             const data = await res.json();
-            setPosts([data.data.post]);
+            setPosts(data.data.post);
+            setNewPostBody('')
+            setNewPostTitle('')
+            setPrice(0)
+            setDeliver(false)
             
         } catch (err) {
             console.log(err)

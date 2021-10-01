@@ -4,6 +4,7 @@ import Post from './Post';
 import LoginForm from './LoginForm';
 import NewPost from './NewPost';
 import Nav from './Nav';
+import MessageForm from './MessageForm';
 
 const App = () => {
     const API_URL = 'https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT';
@@ -13,15 +14,27 @@ const App = () => {
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+    const [message, setMessage] = useState('');
+    const [isMessageDisplayed, setIsMessageDisplayed] = useState(false);
 
     useEffect(() => {
         const posts = async () => {
-            const res = await fetch(`${API_URL}/posts`);
+            const res = await fetch(`${API_URL}/posts`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             const data = await res.json();
             setPosts(data.data.posts);
         }
         posts();
+    }, [posts])
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token')
+        if (storedToken) setToken(storedToken);
     }, [])
 
     const handleLogout = () => {
@@ -39,7 +52,29 @@ const App = () => {
             },
         })
         await res.json();
-        setPosts(posts);
+        console.log('before the filter:', posts)
+        const postsList = posts.filter(post => post.id !== id);
+        setPosts(postsList);
+        console.log('after filter method:', posts)
+    }
+
+    const handleInitializingMessage = (id) => {
+        console.log('post id:', id)
+    }
+
+    const handleSubmitMessage = async () => {
+        const res = await fetch(`${API_URL}/posts/${id}/messages`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                message: {
+                    content: content
+                },
+            })
+        })
     }
 
     return (
@@ -60,8 +95,14 @@ const App = () => {
                     <Post 
                     posts={posts}
                     handleDelete={handleDelete}
+                    handleInitializingMessage={handleInitializingMessage}
+                    message={message}
+                    setMessage={setMessage}
+                    isMessageDisplayed={isMessageDisplayed}
+                    setIsMessageDisplayed={setIsMessageDisplayed}
                     />
                </Route>
+               
             </> 
             ) : (
                 <LoginForm
@@ -74,6 +115,7 @@ const App = () => {
                     setToken={setToken}
                     isLoggedIn={isLoggedIn}
                     setIsLoggedIn={setIsLoggedIn}
+                    minPasswordLength={minPasswordLength}
             />)}
         </div>
     )

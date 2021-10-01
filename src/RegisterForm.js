@@ -11,7 +11,18 @@ const RegisterForm = ({ API_URL, setIsLoggedIn, setPassword, setUsername, minPas
     e.preventDefault();
     try {
       if ((newPasswordV1 === newPasswordV2) && (newPasswordV1.length >= minPasswordLength)) {
-        const res = await fetch(`${API_URL}/users/register`, makeHeaders('Post', {newUsername}, {newPasswordV1}))
+        const res = await fetch(`${API_URL}/users/register`, {
+          method: "POST",
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            user: {
+              username: {newUsername},
+              password: {newPasswordV1}
+            }
+          })
+        })
         const parsedData = await res.json();
         setToken(parsedData.data.token);
         window.localStorage.setItem('token', JSON.stringify(token))
