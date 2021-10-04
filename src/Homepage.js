@@ -1,32 +1,24 @@
 import React, {useEffect, useState} from 'react'
+import { handleNewPosts, handleNewPostSubmit, lookMeUp } from './handleFuncs'
+import { API_URL } from './constants'
 
+const Homepage = ({ token }) => {
 
-
-const Homepage = ({ API_URL, token, isLoggedIn }) => {
-
-    const [name, setName] = useState('')
-
-   useEffect(() => {
-    async function welcomeUser() {
-        const res = await fetch(`${API_URL}/users/me`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        console.log(res);
-        const parsedData = await res.json();
-        console.log(parsedData);
-    }
-    welcomeUser();
-
-   }, [])
-    return (
-        <>
-        {isLoggedIn && 
-        <h1>Welcome to Strangers Things {name}</h1>
+        async function getInfo() {
+            // const myToken = window.localStorage.getItem('token')
+            const res = await fetch(`${API_URL}/users/me`, {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer '+ token
+                },
+              })
+              const data = await res.json();
+              console.log(data);
         }
-        </>
+        getInfo();
+
+    return (
+        <h1>Welcome to Stranger's Things :)</h1>
     )
 }
 

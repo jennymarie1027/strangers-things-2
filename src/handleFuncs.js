@@ -131,11 +131,6 @@ const lookMeUp = async (token) => {
     return data;
 }
 
-async function handleInitializingMessage(post_id) {
-    const res = await fetch(`${API_URL}/${post_id}/messages`)
-    const data = await res.json();
-    return data;
-}
 
 export {
     handleRegister,
@@ -146,5 +141,5 @@ export {
     handleSubmitMessage,
     handleNewPostSubmit,
     lookMeUp,
-    handleInitializingMessage
+    
 }

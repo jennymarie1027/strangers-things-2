@@ -52,7 +52,7 @@ const Index = () => {
     
     <Route path='/newPost' exact render={(routeProps) => <NewPost {...routeProps} isLoggedIn={!!token} posts={posts} setPosts={setPosts} token={token} />} />
     <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken}/>} />
-    <Route path='/' exact render={() => <Homepage isLoggedIn={!!token}/>} />
+    <Route path='/' exact render={() => <Homepage isLoggedIn={!!token} token={token} />} />
   </BrowserRouter>
   )
 }
