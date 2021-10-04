@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import RegisterForm from './RegisterForm';
 
 const LoginForm = ({
-    username, password, setPassword, setUsername, API_URL, setToken, setIsLoggedIn, makeHeaders, token, minPasswordLength
+    username, password, setPassword, setUsername, API_URL, setToken, makeHeaders, token, minPasswordLength
 }) => {
 
     const [isNewUser, setIsNewUser] = useState(false)
@@ -26,7 +26,6 @@ const LoginForm = ({
             const parsedData = await res.json();
             setToken(parsedData.data.token);
             window.localStorage.setItem('token', JSON.stringify(parsedData.data.token))
-            setIsLoggedIn(true)
             setPassword('');
             setUsername('')
         } catch(err) {

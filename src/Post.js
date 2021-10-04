@@ -8,11 +8,11 @@ const Post = ({posts, handleDelete, handleInitializingMessage, message, setMessa
                 <article key={post._id}>
                     <h1>{post.title}</h1>
                     <p>{post.description}</p>
-                    {post.isAuthor 
+                    {/* {post.isAuthor 
                     ? <button onClick={() => handleDelete(post._id)}>Delete</button>
                     : <button onClick={() => handleInitializingMessage(post._id) }>
                         Send Message
-                    </button>}
+                    </button>} */}
                 </article>
             ))}
             {isMessageDisplayed ? <MessageForm /> : null}

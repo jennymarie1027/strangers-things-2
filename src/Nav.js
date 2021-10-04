@@ -19,7 +19,8 @@ const Nav =  ({token, API_URL}) => {
      
         
         <ul>
-            <li><Link to="/">NEW POST</Link></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/newpost">NEW POST</Link></li>
             <li><Link to="/posts">VIEW POSTS</Link></li>
         </ul>
     </>
