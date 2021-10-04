@@ -14,18 +14,31 @@ const Login2 = ({ isLoggedIn, setToken, match }) => {
           onSubmit={async (e) => {
               e.preventDefault();
               if (match.url === '/register') {
-                const parsedData = await handleRegister(username, password, confirmedPassword, setToken)
-                setToken(parsedData.data.token);
-                window.localStorage.setItem('token', token);
-                setUsername(username);
-                setPassword(password);
+                try {
+                  const parsedData = await handleRegister(username, password, confirmedPassword, setToken)
+                  setToken(parsedData.data.token);
+                  window.localStorage.setItem('token', token);
+                  setUsername(username);
+                  setPassword(password);
+                } catch (err) {
+                  if (err) alert('That username is already taken')
+                  setPassword('');
+                  setUsername('');
+                }
+
               }
               if (match.url === '/login') {
-                const parsedData = await handleLogin(username, password, setToken);
-                setToken(parsedData.data.token);
-                window.localStorage.setItem('token', parsedData.data.token)
-                setUsername(username);
-                setPassword(password);
+                try {
+                  const parsedData = await handleLogin(username, password, setToken);
+                  setToken(parsedData.data.token);
+                  window.localStorage.setItem('token', parsedData.data.token)
+                  setUsername(username);
+                  setPassword(password);
+                } catch (err) {
+                  if (err) alert('That username & password combo does not exist');
+                  setPassword('');
+                  setUsername('');
+                }
               }
           }}
         >
@@ -64,7 +77,6 @@ const Login2 = ({ isLoggedIn, setToken, match }) => {
             ) : null }
             <div>
                 <button type='submit'>Submit</button>
-                {/* TODO: Link to /login && /register */}
                 {
                     match.url === '/register' ?
                     <Link to='/login'>Already have an account? </Link>

@@ -1,33 +1,22 @@
 import React, { useEffect } from 'react'
-import MessageForm from './MessageForm'
-import { API_URL } from './constants';
-import { handleDelete, lookMeUp } from './handleFuncs';
+import { handleDelete, handleNewPosts } from './handleFuncs';
 
-const PostForum = ({posts, handleInitializingMessage, isMessageDisplayed, token, setPosts}) => {
+const PostForum = ({posts, handleInitializingMessage, token, setPosts, history}) => {
  
     const deletedPost = (id) => {
         handleDelete(id, token);
         const postsList = posts.filter(post => post.id !== id);
         setPosts(postsList);
+        history.push('/postforum');
     }
 
-    useEffect((token) => {
-        const myToken = window.localStorage.getItem('token')
-        console.log('token:', token);
-        const lookMeUp = async () => {
-            const res = await fetch(`${API_URL}/users/me`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + myToken
-                }
-            })
-            console.log(res);
-            const data = await res.json();
-            console.log(data);
-            // return data;
+    useEffect(() => {
+        const getPosts = async () => {
+            const myToken = window.localStorage.getItem('token')
+            const data = await handleNewPosts(myToken);
+            setPosts(data.data.posts)
         }
-        
-        lookMeUp();
+        getPosts();
     }, [])
 
     return (
@@ -38,7 +27,11 @@ const PostForum = ({posts, handleInitializingMessage, isMessageDisplayed, token,
                     <p>{post.description}</p>
                     <p>{post.price}</p>
                     {post.isAuthor 
-                        ? <button onClick={() => deletedPost(post._id)}>Delete</button>
+                        ? <button onClick={async () => {
+                            deletedPost(post._id);
+                            // const data = await handleNewPosts();
+                            // setPosts(data.data.posts);
+                        }}>Delete</button>
                         : <button onClick={() => handleInitializingMessage(post._id) }>
                         Send Message
                         </button>

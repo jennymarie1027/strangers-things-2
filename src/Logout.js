@@ -1,12 +1,11 @@
 import React from 'react'
-import { handleDelete, handleLogout } from './handleFuncs'
 
 const Logout = ({ token, setToken }) => {
     
     return  ( <>
         {token 
         ? <button onClick={() => {
-            handleLogout(token)
+            localStorage.removeItem('token')
             setToken('');
         }}>
             Logout

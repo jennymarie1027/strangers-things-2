@@ -46,7 +46,7 @@ const Index = () => {
     
     <Route path='/login' exact render={(routeProps) => <Login2 {...routeProps} setToken={setToken} isLoggedIn={!!token} /> } />
     <Route path='/register' exact render={(routeProps) => <Login2 {...routeProps} setToken={setToken} /> }/>
-    <Route path='/postforum' exact render={() => <PostForum isLoggedIn={!!token} posts={posts} token={token} setPosts={setPosts}/> } />
+    <Route path='/postforum' exact render={(routeProps) => <PostForum {...routeProps} isLoggedIn={!!token} posts={posts} token={token} setPosts={setPosts}/> } />
     <Route path='/newPost' exact render={(routeProps) => <NewPost {...routeProps} isLoggedIn={!!token} posts={posts} setPosts={setPosts} token={token} />} />
     <Route path='/logout' exact render={() => <Logout token={token} setToken={setToken}/>} />
     <Route path='/' exact render={() => <Homepage isLoggedIn={!!token}/>} />

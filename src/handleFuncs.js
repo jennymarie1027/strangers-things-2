@@ -78,8 +78,7 @@ const handleNewPostSubmit = async (e, token, newPostTitle, newPostBody, price, d
     }
 }
 
-const handleNewPosts = async (token, setPosts) => {
-    console.log('inside the handleNewPosts function')
+const handleNewPosts = async (token) => {
     const res = await fetch(`${API_URL}/posts`, {
         method: "GET",
         headers: {
@@ -88,7 +87,7 @@ const handleNewPosts = async (token, setPosts) => {
         }
     });
     const data = await res.json();
-    setPosts(data.data.posts);
+    return data
 }
 
 
