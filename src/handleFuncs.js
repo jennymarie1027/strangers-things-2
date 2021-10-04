@@ -103,7 +103,7 @@ const handleDelete = async (id, token) => {
     return data;
 }
 
-const handleSubmitMessage = async (token) => {
+const handleSubmitMessage = async (token, id, content) => {
     const res = await fetch(`${API_URL}/posts/${id}/messages`, {
         method: "POST",
         headers: {
@@ -116,8 +116,9 @@ const handleSubmitMessage = async (token) => {
             },
         })
     })
+    const data = await res.json();
+    return data;
 }
-
 
 const lookMeUp = async (token) => {
     const res = await fetch(`${API_URL}/users/me`, {
@@ -130,6 +131,11 @@ const lookMeUp = async (token) => {
     return data;
 }
 
+async function handleInitializingMessage(post_id) {
+    const res = await fetch(`${API_URL}/${post_id}/messages`)
+    const data = await res.json();
+    return data;
+}
 
 export {
     handleRegister,
@@ -139,5 +145,6 @@ export {
     handleDelete,
     handleSubmitMessage,
     handleNewPostSubmit,
-    lookMeUp
+    lookMeUp,
+    handleInitializingMessage
 }

@@ -7,11 +7,13 @@ import PostForum from './PostForum'
 import Homepage from './Homepage';
 import NewPost from './NewPost';
 import Logout from './Logout'
+import Popup from './Popup';
 
 const Index = () => {
   const minPasswordLength = 6;
   const [token, setToken] = useState('');
   const [posts, setPosts] = useState([]);
+  const [buttonPopUp, setButtonPopUp] = useState(false)
 
   // this useEffect checks is there is a token in browser storage
   useEffect(() => {
@@ -36,7 +38,7 @@ const Index = () => {
     ? ( <>
       <Link to='/login'> Login </Link>
       <Link to='/register'> Register </Link>
-    </>): ( <>
+    </> ): ( <>
     <Link to='/'>Homepage</Link>
     <Link to='/postforum'>Post Forum</Link>
     <Link to='/newpost'>New Post</Link>
@@ -46,7 +48,8 @@ const Index = () => {
     
     <Route path='/login' exact render={(routeProps) => <Login2 {...routeProps} setToken={setToken} isLoggedIn={!!token} /> } />
     <Route path='/register' exact render={(routeProps) => <Login2 {...routeProps} setToken={setToken} /> }/>
-    <Route path='/postforum' exact render={(routeProps) => <PostForum {...routeProps} isLoggedIn={!!token} posts={posts} token={token} setPosts={setPosts}/> } />
+    <Route path='/postforum' exact render={(routeProps) => <PostForum {...routeProps} isLoggedIn={!!token} posts={posts} token={token} setPosts={setPosts} buttonPopUp={buttonPopUp} setButtonPopUp={setButtonPopUp}/> } />
+    
     <Route path='/newPost' exact render={(routeProps) => <NewPost {...routeProps} isLoggedIn={!!token} posts={posts} setPosts={setPosts} token={token} />} />
     <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken}/>} />
     <Route path='/' exact render={() => <Homepage isLoggedIn={!!token}/>} />

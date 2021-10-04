@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
-import { handleDelete, handleNewPosts } from './handleFuncs';
+import React, { useEffect, useState } from 'react'
+import { handleDelete, handleNewPosts, handleInitializingMessage, handleSubmitMessage } from './handleFuncs';
+import Popup from './Popup';
 
-const PostForum = ({posts, handleInitializingMessage, token, setPosts, history}) => {
- 
+const PostForum = ({posts, token, setPosts, history, setButtonPopUp, buttonPopUp}) => {
+    
     const deletedPost = (id) => {
         handleDelete(id, token);
         const postsList = posts.filter(post => post.id !== id);
@@ -32,10 +33,11 @@ const PostForum = ({posts, handleInitializingMessage, token, setPosts, history})
                             // const data = await handleNewPosts();
                             // setPosts(data.data.posts);
                         }}>Delete</button>
-                        : <button onClick={() => handleInitializingMessage(post._id) }>
+                        : <button onClick={() => setButtonPopUp(true) }>
                         Send Message
                         </button>
                     }
+                    {buttonPopUp ? <Popup trigger={buttonPopUp} setButtonPopUp={setButtonPopUp} id={post._id} token={token}/> : null}
                 </article>
             ))}
         </main>
