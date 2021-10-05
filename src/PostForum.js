@@ -27,16 +27,16 @@ const PostForum = ({posts, token, setPosts, history, setButtonPopUp, buttonPopUp
                     <h1>{post.title}</h1>
                     <p>{post.description}</p>
                     <p>{post.price}</p>
-                    {post.isAuthor 
-                        ? <button onClick={async () => {
+                    {/* {post.isAuthor  */}
+                        <button onClick={async () => {
                             deletedPost(post._id);
                             // const data = await handleNewPosts();
                             // setPosts(data.data.posts);
                         }}>Delete</button>
-                        : <button onClick={() => setButtonPopUp(true) }>
+                         <button onClick={() => setButtonPopUp(true) }>
                         Send Message
                         </button>
-                    }
+                    
                     {buttonPopUp ? <Popup trigger={buttonPopUp} setButtonPopUp={setButtonPopUp} id={post._id} token={token}/> : null}
                 </article>
             ))}

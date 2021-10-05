@@ -52,6 +52,17 @@ async function handleRegister(username, password, confirmedPassword){
     } 
 }
 
+async function handleFetchingUserInfo() {
+    const myToken = window.localStorage.getItem('token')
+    const res = await fetch(`${API_URL}/users/me`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer '+ myToken
+        },
+      })
+      const data = await res.json();
+      return data;
+}
 
 const handleNewPostSubmit = async (e, token, newPostTitle, newPostBody, price, deliver) => {
     e.preventDefault();
@@ -136,6 +147,7 @@ export {
     handleRegister,
     handleLogin,
     handleLogout,
+    handleFetchingUserInfo,
     handleNewPosts,
     handleDelete,
     handleSubmitMessage,
