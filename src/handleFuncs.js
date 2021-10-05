@@ -5,8 +5,6 @@ const handleLogout = (token) => {
 }
 
 async function handleLogin(username, password){
-    // pass username and password to the API
-    // it gives you a token back, save that to the users broswer & update state with it
     try {
         const res = await fetch(`${API_URL}/users/login`, {
             method: "POST",

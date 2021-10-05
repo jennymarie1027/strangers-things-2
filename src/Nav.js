@@ -1,29 +1,21 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-const Nav =  ({token, API_URL}) => {
-    // const testFetch = async () => {
-    //     const res = await fetch(`${API_URL}/test/data`, {
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': `Bearer ${token}`
-    //         }
-    //     });
-    //     const data = await res.json();
-    //     console.log(`the date from the test:`, data)
-    // }
-    // testFetch();
+const Nav =  ({ search, setSearch}) => {
 
     return (
-    <>
-     
-        
-        <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/newpost">NEW POST</Link></li>
-            <li><Link to="/posts">VIEW POSTS</Link></li>
-        </ul>
-    </>
+    <nav>
+        <form onSubmit={e => e.preventDefault()}>
+            <label htmlFor="search">Search Posts</label>
+            <input 
+                id='search'
+                type='text'
+                placeholder='search posts'
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+            />
+        </form>
+    </nav>
     )
 }
 
