@@ -11,7 +11,7 @@ const Login2 = ({ isLoggedIn, setToken, match, history }) => {
     return (
         <>
         {!isLoggedIn && 
-        <div className='text-center mt-5'>
+        <div className='text-center mt-5' >
         <form 
           onSubmit={async (e) => {
               e.preventDefault();
@@ -46,7 +46,7 @@ const Login2 = ({ isLoggedIn, setToken, match, history }) => {
                 }
               }
           }}
-          style={{maxWidth: 50 + 'vw', margin: 'auto'}}
+          style={{maxWidth: 50 + 'vw', margin: 'auto', marginTop: 20 + 'vh'}}
         >
           <h1 className='m-3 '>Please Sign In</h1>
             <div>

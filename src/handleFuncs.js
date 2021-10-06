@@ -178,6 +178,13 @@ async function test() {
     }
 }
 
+function findPostById(postId, arrayOfPosts) {
+    const myPost = arrayOfPosts.find(post => {
+        return (post._id == postId)
+    })
+    return myPost || {};
+}
+
 export {
     handleRegister,
     handleLogin,
@@ -188,5 +195,5 @@ export {
     handleSubmitMessage,
     handleNewPostSubmit,
     lookMeUp,
-    
+    findPostById
 }

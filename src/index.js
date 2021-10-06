@@ -10,11 +10,14 @@ import Logout from './Logout'
 import Header from './Header'
 import Footer from './Footer';
 import MessageForm from './MessageForm';
+import SinglePost from './SinglePost';
+import { findPostById } from './handleFuncs';
 
-const Index = () => {
+const Index = ({match}) => {
   
   const [token, setToken] = useState('');
   const [posts, setPosts] = useState([]);
+  const [selectedPost, setSelectedPost] = useState({})
   const [buttonPopUp, setButtonPopUp] = useState(false)
   const [searchResults, setSearchResults] = useState([]);
   const [search, setSearch] = useState('');
@@ -35,27 +38,34 @@ const Index = () => {
     }   
     getPosts(); 
     
-}, [])
+  }, [])
 
   useEffect(() => {
-  let filteredResults;
-  {posts.length 
-    ? filteredResults = posts.filter(post =>
-      ((post.description).toLowerCase()).includes(search.toLowerCase())
-      || ((post.title).toLowerCase()).includes(search.toLowerCase()))
-    : null
-  }
-  setSearchResults(filteredResults);
+    let filteredResults;
+    {posts.length 
+     ? filteredResults = posts.filter(post =>
+        ((post.description).toLowerCase()).includes(search.toLowerCase())
+        || ((post.title).toLowerCase()).includes(search.toLowerCase()))
+      : null
+   }
+    setSearchResults(filteredResults);
   }, [search])
 
+  useEffect(() => {
+    const postID = (match.params.postID);
+    const mySelectedPost = findPostById(postID, posts);
+    console.log('mySelectedPost:', mySelectedPost)
+    // setSelectedPost(mySelectedPost);
+  }, [])
 
   return (
   <BrowserRouter>
     <Header token={token} />
     <Route path='/login' exact render={(routeProps) => <Login2 {...routeProps} setToken={setToken} isLoggedIn={!!token} /> } />
     <Route path='/register' exact render={(routeProps) => <Login2 {...routeProps} setToken={setToken} /> }/>
-    <Route path='/postforum' exact render={(routeProps) => <PostForum {...routeProps} isLoggedIn={!!token} posts={searchResults} token={token} setPosts={setPosts} buttonPopUp={buttonPopUp} setButtonPopUp={setButtonPopUp} search={search} setSearch={setSearch} searchResults={searchResults} setSearchResults={setSearchResults}/> } />
+    <Route path='/postforum' exact render={(routeProps) => <PostForum {...routeProps} isLoggedIn={!!token} posts={searchResults} token={token} setPosts={setPosts} buttonPopUp={buttonPopUp} setButtonPopUp={setButtonPopUp} search={search} setSearch={setSearch} searchResults={searchResults} setSearchResults={setSearchResults} setSelectedPost={setSelectedPost}/> } />
     <Route path='/messageform' exact render={() => <MessageForm />} />
+    <Route path='/postforum/:postID' exact render={(routeProps) => <SinglePost {...routeProps} posts={searchResults} selectedPost={selectedPost} setSelectedPost={setSelectedPost}/>} />
     <Route path='/newPost' exact render={(routeProps) => <NewPost {...routeProps} isLoggedIn={!!token} posts={posts} setPosts={setPosts} token={token} />} />
     <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken}/>} />
     <Route path='/' exact render={() => <Homepage isLoggedIn={!!token} token={token} />} />
