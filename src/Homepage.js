@@ -2,42 +2,43 @@ import React, {useEffect, useState} from 'react'
 import { handleFetchingUserInfo } from './handleFuncs'
 
 
-const Homepage = ({ token }) => {
+const Homepage = ({ message, setMessage }) => {
   const [pastposts, setPastPosts] = useState([]);
   const [username, setUsername] = useState('');
-  const [messages, setMessages] = useState('');
+ 
 
   useEffect(() => {
       async function getUserInfo() {
         const data = await handleFetchingUserInfo();
-        console.log(data);
-        setMessages(data.data.messages);
+        setMessage(data.data.messages);
         setUsername(data.data.username)
         setPastPosts(data.data.posts)
+        console.log(message);
+
       }
       getUserInfo();
   }, [])
 
   return ( 
-    <main>
+    <main style={{marginTop: 5 + 'em'}}>
       <h1>{username}'s Profile</h1>
-      <h2 className='mb-5'>Your Inbox:</h2>
-        <table className='table table-striped mb-3'>
+      <h2 className='mt-5'>Your Inbox:</h2>
+        <table className='table table-striped mb-3' style={{border: 1 + 'px solid black'}}>
           <thead>
             <tr>
-              <th scope='col'>Post:</th>
-              <th scope='col'>From:</th>
-              <th scope='col'>Message:</th>
+              <th scope='col'>Message From:</th>
+              <th scope='col'>Message Content:</th>
+              <th scope='col'>Regarding Post:</th>
             </tr>
           </thead>
           <tbody>
-            {messages
+            {message
             ? (
-              messages.map((msg) => (
+              message.map((msg) => (
                   <tr scope='row' key={msg._id}>
-                  <td>{msg.post.title}</td>
                   <td>{msg.fromUser.username}</td>
                   <td>{msg.content}</td>
+                  <td>{msg.post.title}</td>
                   </tr>
               ))
             ) : <tr>
@@ -45,8 +46,8 @@ const Homepage = ({ token }) => {
                 </tr>}
           </tbody>
         </table>
-        <h2>Your Past Posts:</h2>
-        <table className='table table-striped'>
+        <h2 style={{marginTop: 3 + 'em'}}>Your Past Posts:</h2>
+        <table className='table table-striped' style={{border: 1 + 'px solid black'}}>
           <thead>
             <tr>
               <th scope='col'>Post Title:</th>
@@ -74,18 +75,3 @@ const Homepage = ({ token }) => {
 }
 
 export default Homepage
-
-
-{/* <ul>
-        {messages
-        ? (
-          messages.map((msg) => <li key={msg._id}>From: {msg.fromUser.username} on post: {msg.post.title} Content: {msg.content}</li>)
-        ) : <h2>No messages to be displayed</h2>}
-        </ul>
-        <h2>Your Past Post's</h2>
-        <ul>
-        {pastposts
-          ? (
-          pastposts.map((post) => <li key={post._id}>Post title: {post.title} Description: {post.description} Price: {post.price}</li>)
-          ) : <h2>You haven't posted anything yet</h2>}
-        </ul> */}

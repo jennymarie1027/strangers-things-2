@@ -9,7 +9,6 @@ import NewPost from './NewPost';
 import Logout from './Logout'
 import Header from './Header'
 import Footer from './Footer';
-import MessageForm from './MessageForm';
 import SinglePost from './SinglePost';
 import { findPostById } from './handleFuncs';
 
@@ -21,6 +20,7 @@ const Index = ({match}) => {
   const [buttonPopUp, setButtonPopUp] = useState(false)
   const [searchResults, setSearchResults] = useState([]);
   const [search, setSearch] = useState('');
+  const [message, setMessage] = useState('');
 
   // this useEffect checks is there is a token in browser storage
   useEffect(() => {
@@ -54,8 +54,7 @@ const Index = ({match}) => {
   useEffect(() => {
     const postID = (match.params.postID);
     const mySelectedPost = findPostById(postID, posts);
-    console.log('mySelectedPost:', mySelectedPost)
-    // setSelectedPost(mySelectedPost);
+    setSelectedPost(mySelectedPost);
   }, [])
 
   return (
@@ -64,11 +63,10 @@ const Index = ({match}) => {
     <Route path='/login' exact render={(routeProps) => <Login2 {...routeProps} setToken={setToken} isLoggedIn={!!token} /> } />
     <Route path='/register' exact render={(routeProps) => <Login2 {...routeProps} setToken={setToken} /> }/>
     <Route path='/postforum' exact render={(routeProps) => <PostForum {...routeProps} isLoggedIn={!!token} posts={searchResults} token={token} setPosts={setPosts} buttonPopUp={buttonPopUp} setButtonPopUp={setButtonPopUp} search={search} setSearch={setSearch} searchResults={searchResults} setSearchResults={setSearchResults} setSelectedPost={setSelectedPost}/> } />
-    <Route path='/messageform' exact render={() => <MessageForm />} />
-    <Route path='/postforum/:postID' exact render={(routeProps) => <SinglePost {...routeProps} posts={searchResults} selectedPost={selectedPost} setSelectedPost={setSelectedPost}/>} />
+    <Route path='/postforum/:postID' exact render={(routeProps) => <SinglePost {...routeProps} message={message} setMessage={setMessage} posts={searchResults} selectedPost={selectedPost} setSelectedPost={setSelectedPost}/>} />
     <Route path='/newPost' exact render={(routeProps) => <NewPost {...routeProps} isLoggedIn={!!token} posts={posts} setPosts={setPosts} token={token} />} />
     <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken}/>} />
-    <Route path='/' exact render={() => <Homepage isLoggedIn={!!token} token={token} />} />
+    <Route path='/' exact render={() => <Homepage isLoggedIn={!!token} token={token} message={message} setMessage={setMessage} />} />
     <Footer />
   </BrowserRouter>
   )

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-// i want to also add fixed-top to header's classes but after I add in margin-top to other components below
+
 const Header = ({ token }) => {
     return (
         <header className='navbar navbar-expand-sm navbar-light bg-light fixed-top'>
@@ -26,6 +26,7 @@ const Header = ({ token }) => {
                 <Link to='/login'> Login </Link>
             ) : ( 
             <>
+                <Link to='/' className='nav-link'>Profile</Link>
                 <Link to='/newpost' className='nav-link'>New Post</Link>
                 <Link to='/logout' className='nav-link'>Logout</Link>
              </> 

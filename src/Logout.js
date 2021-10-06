@@ -8,7 +8,9 @@ const Logout = ({ token, setToken, history }) => {
             localStorage.removeItem('token')
             setToken('');
             history.push('/login')
-        }}>
+        }}
+        style={{marginTop: 100 + 'px'}}
+        >
             Logout
         </button> 
         : null}
