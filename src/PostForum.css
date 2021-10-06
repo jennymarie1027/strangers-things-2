@@ -1,0 +1,13 @@
+body {
+    background-color: #f7f7f7;
+}
+
+main {
+    margin: 15vh auto 15vh auto;
+    max-width: 75vw;
+}
+
+article {
+    background-color: white;
+    padding: 1.5em;
+}

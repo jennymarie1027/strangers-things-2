@@ -1,4 +1,4 @@
-import { API_URL } from "./constants";
+import { API_URL, minPasswordLength } from "./constants";
 
 const handleLogout = (token) => {
     localStorage.removeItem(token)
@@ -21,13 +21,13 @@ async function handleLogin(username, password){
         const parsedData = await res.json();
         return parsedData;
     } catch(err) {
-        console.log(err);
+        console.error(err);
     }
 }
 
 async function handleRegister(username, password, confirmedPassword){
     try {
-        if ((password === confirmedPassword) && (password.length >= 6)) {
+        if ((password === confirmedPassword) && (password.length >= minPasswordLength)) {
         const res = await fetch(`${API_URL}/users/register`, {
             method: "POST",
             headers: {
@@ -43,33 +43,38 @@ async function handleRegister(username, password, confirmedPassword){
         const parsedData = await res.json();
         return parsedData;
         } else {
-          alert('Please make sure your passwords match and are at least 6 characters long')
+          alert(`Please make sure your passwords match and are at least ${minPasswordLength} characters long`)
         } 
     } catch(err) {
-        console.log(err);
+        console.error(err);
     } 
 }
 
 async function handleFetchingUserInfo() {
-    const myToken = window.localStorage.getItem('token')
-    const res = await fetch(`${API_URL}/users/me`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer '+ myToken
-        },
-      })
-      const data = await res.json();
-      return data;
+    try {
+        const myToken = window.localStorage.getItem('token')
+        const res = await fetch(`${API_URL}/users/me`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ myToken
+            },
+        })
+        const data = await res.json();
+        return data;
+    } catch(err) {
+      console.error(err);
+    }
 }
 
 const handleNewPostSubmit = async (e, token, newPostTitle, newPostBody, price, deliver) => {
     e.preventDefault();
+    const myToken = window.localStorage.getItem('token')
     try {
         const res = await fetch(`${API_URL}/posts`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Authorization': 'Bearer ' + myToken
             },
             body: JSON.stringify({
                 post: {
@@ -80,73 +85,105 @@ const handleNewPostSubmit = async (e, token, newPostTitle, newPostBody, price, d
                 }
             })
         })
-        return await res.json();
-       
+        const data = await res.json();
+        return data;
     } catch (err) {
-        console.log(err)
+        console.error(err)
     }
 }
 
-const handleNewPosts = async (token) => {
-    const res = await fetch(`${API_URL}/posts`, {
-        method: "GET",
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    });
-    const data = await res.json();
-    return data
+const handleFetchingPosts = async (token) => {
+    try {
+        const myToken = window.localStorage.getItem('token')
+        const res = await fetch(`${API_URL}/posts`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + myToken
+            }
+        });
+        const data = await res.json();
+        return data
+    } catch(err) {
+        console.error(err);
+    }
 }
 
 
 const handleDelete = async (id, token) => {
-    const res = await fetch(`${API_URL}/posts/${id}`, {
-        method: "Delete",
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-    })
-    const data = await res.json();
-    return data;
+    try {
+        const res = await fetch(`${API_URL}/posts/${id}`, {
+            method: "Delete",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+        const data = await res.json();
+        return data;
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 const handleSubmitMessage = async (token, id, content) => {
-    const res = await fetch(`${API_URL}/posts/${id}/messages`, {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            message: {
-                content: content
+    try {
+        const res = await fetch(`${API_URL}/posts/${id}/messages`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
+            body: JSON.stringify({
+                message: {
+                    content: content
+                },
+            })
         })
-    })
-    const data = await res.json();
-    return data;
+        const data = await res.json();
+        return data;
+    } catch(err) {
+        console.error(err);
+    }
 }
 
 const lookMeUp = async (token) => {
-    const res = await fetch(`${API_URL}/users/me`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    })
-    const data = await res.json();
-    return data;
+   try {
+        const res = await fetch(`${API_URL}/users/me`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const data = await res.json();
+        return data;
+   } catch(err) {
+       console.error(err);
+   }
 }
 
+async function test() {
+    try {
+        const myToken = window.localStorage.getItem('token')
+        const res = await fetch(`${API_URL}/test/me`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + myToken
+            },
+        })
+        const data = await res.json();
+        console.log(data.data);
+    } catch(err) {
+        console.err(err);
+    }
+}
 
 export {
     handleRegister,
     handleLogin,
     handleLogout,
     handleFetchingUserInfo,
-    handleNewPosts,
+    handleFetchingPosts,
     handleDelete,
     handleSubmitMessage,
     handleNewPostSubmit,

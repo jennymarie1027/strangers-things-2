@@ -3,14 +3,16 @@ import { Link } from 'react-router-dom';
 import { API_URL } from './constants'
 import { handleLogin, handleRegister, handleLogout} from './handleFuncs'
 
-const Login2 = ({ isLoggedIn, setToken, match }) => {
+const Login2 = ({ isLoggedIn, setToken, match, history }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmedPassword, setConfirmedPassword] = useState('');
 
     return (
         <>
-        {!isLoggedIn && <form 
+        {!isLoggedIn && 
+        <div className='text-center mt-5'>
+        <form 
           onSubmit={async (e) => {
               e.preventDefault();
               if (match.url === '/register') {
@@ -20,6 +22,8 @@ const Login2 = ({ isLoggedIn, setToken, match }) => {
                   window.localStorage.setItem('token', token);
                   setUsername(username);
                   setPassword(password);
+                  history.push('/');
+
                 } catch (err) {
                   if (err) alert('That username is already taken')
                   setPassword('');
@@ -34,6 +38,7 @@ const Login2 = ({ isLoggedIn, setToken, match }) => {
                   window.localStorage.setItem('token', parsedData.data.token)
                   setUsername(username);
                   setPassword(password);
+                  history.push('/');
                 } catch (err) {
                   if (err) alert('That username & password combo does not exist');
                   setPassword('');
@@ -41,49 +46,61 @@ const Login2 = ({ isLoggedIn, setToken, match }) => {
                 }
               }
           }}
+          style={{maxWidth: 50 + 'vw', margin: 'auto'}}
         >
+          <h1 className='m-3 '>Please Sign In</h1>
             <div>
-                <label htmlFor='username'>Username</label>
+                {/* <label className='sr-only' htmlFor='username'>Username</label> */}
                 <input
                     type='text'
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                     id='username'
-                    placeholder="your username"
+                    required
+                    placeholder='Your Username'
+                    className='form-control mb-2'
+                    autoFocus
                 />
             </div>
             <div>
-                <label htmlFor='password'>Password</label>
+                {/* <label className='sr-only' htmlFor='password'>Password</label> */}
                 <input 
                     type='password'
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     id='password'
-                    placeholder=''
+                    placeholder='Enter Password'
+                    required
+                    className='form-control mb-2'
                 />
             </div>
             {/* if they're at the register page, show the input field to confirm password */}
             {match.url === '/register' 
             ? (<div>
-                <label htmlFor='confirmedPassword'>Confirm Password</label>
+                {/* <label className='sr-only' htmlFor='confirmedPassword'>Confirm Password</label> */}
                 <input 
                     type='password'
                     value={confirmedPassword}
                     onChange={e => setConfirmedPassword(e.target.value)}
                     id='confirmedPassword'
-                    placeholder=''
+                    placeholder='Confirm Password'
+                    className='form-control mb-2'
                 />
             </div>
             ) : null }
-            <div>
-                <button type='submit'>Submit</button>
+           
+                <button type='submit' className='btn btn-lg btn-primary btn-block mt-4'>Sign In</button>
                 {
-                    match.url === '/register' ?
-                    <Link to='/login'>Already have an account? </Link>
-                    : <Link to='register'>Don't have an account?</Link>
+                  match.url === '/register' ?
+                  
+                  <div className='mt-3'> <Link to='/login'>Already have an account? </Link></div>
+                    : <div className='mt-3'><Link to='register'>Don't have an account?</Link></div>
+                    
                 }
-            </div>
-        </form>}
+          
+        </form>
+        </div>
+        }
         </>
         
     )

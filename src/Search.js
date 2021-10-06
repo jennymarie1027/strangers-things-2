@@ -1,10 +1,6 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-
-const Nav =  ({ search, setSearch}) => {
+const Search =  ({ search, setSearch}) => {
 
     return (
-    <nav>
         <form onSubmit={e => e.preventDefault()}>
             <label htmlFor="search">Search Posts</label>
             <input 
@@ -13,10 +9,11 @@ const Nav =  ({ search, setSearch}) => {
                 placeholder='search posts'
                 value={search}
                 onChange={e => setSearch(e.target.value)}
+                className='form-control'
+                style={{maxWidth: 75 + 'vw', height: 7 + 'vh'}}
             />
         </form>
-    </nav>
     )
 }
 
-export default Nav
+export default Search

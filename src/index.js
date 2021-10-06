@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter, Route, Link } from 'react-router-dom'
+import {BrowserRouter, Route } from 'react-router-dom'
 import { API_URL } from './constants';
 import Login2 from './Login2';
 import PostForum from './PostForum'
 import Homepage from './Homepage';
 import NewPost from './NewPost';
 import Logout from './Logout'
-import Popup from './Popup';
 import Header from './Header'
-import Nav from './Nav';
 import Footer from './Footer';
+import MessageForm from './MessageForm';
 
 const Index = () => {
-  const minPasswordLength = 6;
+  
   const [token, setToken] = useState('');
   const [posts, setPosts] = useState([]);
   const [buttonPopUp, setButtonPopUp] = useState(false)
@@ -32,27 +31,31 @@ const Index = () => {
       const res = await fetch(`${API_URL}/posts`);
       const data = await res.json();
       setPosts(data.data.posts);
+      setSearchResults(data.data.posts);
     }   
     getPosts(); 
     
 }, [])
 
-  // this useEffect initiates a search
-  // useEffect(() => {
-  //   const filteredResults = posts.filter(post => 
-  //     ((post.content).toLowerCase()).includes(search.toLowerCase())
-  //     || ((post.title).toLowerCase()).includes(search.toLowerCase())
-  //     )
-  //     setSearchResults(filteredResults);
-  // }, [posts, search])
-  
+  useEffect(() => {
+  let filteredResults;
+  {posts.length 
+    ? filteredResults = posts.filter(post =>
+      ((post.description).toLowerCase()).includes(search.toLowerCase())
+      || ((post.title).toLowerCase()).includes(search.toLowerCase()))
+    : null
+  }
+  setSearchResults(filteredResults);
+  }, [search])
+
+
   return (
   <BrowserRouter>
     <Header token={token} />
-    <Nav search={search} setSearch={setSearch}/>
     <Route path='/login' exact render={(routeProps) => <Login2 {...routeProps} setToken={setToken} isLoggedIn={!!token} /> } />
     <Route path='/register' exact render={(routeProps) => <Login2 {...routeProps} setToken={setToken} /> }/>
-    <Route path='/postforum' exact render={(routeProps) => <PostForum {...routeProps} isLoggedIn={!!token} posts={posts} token={token} setPosts={setPosts} buttonPopUp={buttonPopUp} setButtonPopUp={setButtonPopUp}/> } />
+    <Route path='/postforum' exact render={(routeProps) => <PostForum {...routeProps} isLoggedIn={!!token} posts={searchResults} token={token} setPosts={setPosts} buttonPopUp={buttonPopUp} setButtonPopUp={setButtonPopUp} search={search} setSearch={setSearch} searchResults={searchResults} setSearchResults={setSearchResults}/> } />
+    <Route path='/messageform' exact render={() => <MessageForm />} />
     <Route path='/newPost' exact render={(routeProps) => <NewPost {...routeProps} isLoggedIn={!!token} posts={posts} setPosts={setPosts} token={token} />} />
     <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken}/>} />
     <Route path='/' exact render={() => <Homepage isLoggedIn={!!token} token={token} />} />
@@ -68,3 +71,9 @@ ReactDOM.render(
     </BrowserRouter>,
   document.getElementById('app')
 );
+
+// I'm confused in my PostForum => useEffect function that goes and grabs the posts on pageload.
+// When I console.log the data recieved from the fetch request, isAuthor reflects is true on posts I wrote, which is the behavior I want
+// Then I update my state with setPosts using that data that I recieved,
+// and when I console.log(posts) isAuthor's value is false for all posts, even the one I wrote that previously wasn't false.  
+// I must be over-riding the isAuthor value when I update my state, but I don't see where.
