@@ -23,7 +23,7 @@ const PostForum = ({
            console.table(posts); //isAuthor is false. How am I overwriting it????
         }
         getPosts();
-    }, [posts])
+    }, [])
 
     return (
         <main>
@@ -31,29 +31,25 @@ const PostForum = ({
             {posts &&
             posts.map(post => (
                 <article style={{marginTop: 5 + 'vh'}} key={post._id}>
-                    {console.log(post.isAuthor)}
                     <h1>{post.title}</h1>
                     <p>{post.description}</p>
                     <p>{post.price}</p>
-                   
-                        <>
+                    <>
                         {post.isAuthor ? 
-                        <button onClick={async () => {
-                            deletedPost(post._id);
-                            const data = await handleFetchingPosts();
-                            setPosts(data.data.posts);
-                        }}
-                        className='btn btn-lg btn-primary btn-block m-4'
-                        >Delete</button>
+                            <button onClick={async () => {
+                                deletedPost(post._id);
+                                const data = await handleFetchingPosts();
+                                setPosts(data.data.posts);
+                            }}
+                            className='btn btn-lg btn-primary btn-block m-4'
+                            >Delete</button>
                         
                         :
-                        <button onClick={() => {
-                            {isLoggedIn 
-                                ? history.push('/postforum/' + post._id)
-                                : history.push('/register')
+                            <button onClick={() => {
+                                {isLoggedIn 
+                                    ? history.push('/postforum/' + post._id)
+                                    : history.push('/register')
                         }
-                            
-
                         }} 
                         className='btn btn-lg btn-primary btn-block m-4'
                         > 
@@ -61,7 +57,7 @@ const PostForum = ({
                         </button>
                         }
                             
-                        </>
+                     </>
                       
                     
                 </article>

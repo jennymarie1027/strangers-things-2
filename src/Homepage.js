@@ -73,7 +73,7 @@ const Homepage = ({ message, setMessage, isLoggedIn, history }) => {
           </tbody>
         </table>
       </main>
-      : history.push('./login')}
+      : null}
       </>
   )
 }
