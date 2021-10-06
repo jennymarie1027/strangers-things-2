@@ -66,7 +66,7 @@ const Index = ({match}) => {
     <Route path='/postforum/:postID' exact render={(routeProps) => <SinglePost {...routeProps} message={message} setMessage={setMessage} posts={searchResults} selectedPost={selectedPost} setSelectedPost={setSelectedPost}/>} />
     <Route path='/newPost' exact render={(routeProps) => <NewPost {...routeProps} isLoggedIn={!!token} posts={posts} setPosts={setPosts} token={token} />} />
     <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken}/>} />
-    <Route path='/' exact render={() => <Homepage isLoggedIn={!!token} token={token} message={message} setMessage={setMessage} />} />
+    <Route path='/' exact render={(routeProps) => <Homepage {...routeProps} isLoggedIn={!!token} token={token} message={message} setMessage={setMessage} />} />
     <Footer />
   </BrowserRouter>
   )

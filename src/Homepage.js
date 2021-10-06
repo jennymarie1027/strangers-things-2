@@ -2,24 +2,26 @@ import React, {useEffect, useState} from 'react'
 import { handleFetchingUserInfo } from './handleFuncs'
 
 
-const Homepage = ({ message, setMessage }) => {
+const Homepage = ({ message, setMessage, isLoggedIn, history }) => {
   const [pastposts, setPastPosts] = useState([]);
   const [username, setUsername] = useState('');
  
 
-  useEffect(() => {
-      async function getUserInfo() {
-        const data = await handleFetchingUserInfo();
-        setMessage(data.data.messages);
-        setUsername(data.data.username)
-        setPastPosts(data.data.posts)
-        console.log(message);
+  // useEffect(() => {
+  //     async function getUserInfo() {
+  //       const data = await handleFetchingUserInfo();
+  //       setMessage(data.data.messages);
+  //       setUsername(data.data.username)
+  //       setPastPosts(data.data.posts)
+  //       console.log(message);
 
-      }
-      getUserInfo();
-  }, [])
+  //     }
+  //     getUserInfo();
+  // }, [])
 
   return ( 
+    <>
+    {isLoggedIn ?
     <main style={{marginTop: 5 + 'em'}}>
       <h1>{username}'s Profile</h1>
       <h2 className='mt-5'>Your Inbox:</h2>
@@ -71,6 +73,8 @@ const Homepage = ({ message, setMessage }) => {
           </tbody>
         </table>
       </main>
+      : history.push('./login')}
+      </>
   )
 }
 
