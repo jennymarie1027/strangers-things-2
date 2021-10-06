@@ -1,7 +1,7 @@
 import { API_URL, minPasswordLength } from "./constants";
 
-const handleLogout = (token) => {
-    localStorage.removeItem(token)
+const handleLogout = () => {
+    localStorage.removeItem('token')
 }
 
 async function handleLogin(username, password){

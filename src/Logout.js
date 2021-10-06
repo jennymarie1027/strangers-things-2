@@ -1,20 +1,20 @@
 import React from 'react'
+import { handleLogout } from './handleFuncs'
 
-const Logout = ({ token, setToken, history }) => {
+const Logout = ({ setToken, history }) => {
     
-    return  ( <>
-        {token 
-        ? <button onClick={() => {
-            localStorage.removeItem('token')
+    return  ( 
+        <button onClick={() => {
+            handleLogout();
             setToken('');
             history.push('/login')
         }}
         style={{marginTop: 100 + 'px'}}
+        className='btn btn-lg btn-primary btn-block'
         >
             Logout
         </button> 
-        : null}
-    </>)
+    )
         
     
 }
