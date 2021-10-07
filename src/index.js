@@ -10,14 +10,13 @@ import Logout from './Logout'
 import Header from './Header'
 import Footer from './Footer';
 import SinglePost from './SinglePost';
-import { findPostById } from './handleFuncs';
+import { findPostById, handleFetchingPosts } from './handleFuncs';
 
 const Index = ({match}) => {
   
   const [token, setToken] = useState('');
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState({})
-  const [buttonPopUp, setButtonPopUp] = useState(false)
   const [searchResults, setSearchResults] = useState([]);
   const [search, setSearch] = useState('');
   const [message, setMessage] = useState('');
@@ -25,21 +24,22 @@ const Index = ({match}) => {
   // this useEffect checks is there is a token in browser storage
   useEffect(() => {
     const storedToken = localStorage.getItem('token')
-    if (storedToken) setToken(storedToken);
-  }, [])
-
+    if (storedToken) {
+      setToken(storedToken);
+    }
+    if (!storedToken) setToken('');
+  })
+  
   // this useEffect initiates an AJAX call on page load to go and get the posts
   useEffect(() => {
     async function getPosts() {
-      const res = await fetch(`${API_URL}/posts`);
-      const data = await res.json();
+      const data = await handleFetchingPosts(token);
       setPosts(data.data.posts);
       setSearchResults(data.data.posts);
     }   
     getPosts(); 
-    
-  }, [])
-
+  }, [token])
+  
   useEffect(() => {
     let filteredResults;
     {posts.length 
@@ -62,7 +62,7 @@ const Index = ({match}) => {
     <Header token={token} />
     <Route path='/login' exact render={(routeProps) => <Login2 {...routeProps} setToken={setToken} isLoggedIn={!!token} /> } />
     <Route path='/register' exact render={(routeProps) => <Login2 {...routeProps} setToken={setToken} /> }/>
-    <Route path='/postforum' exact render={(routeProps) => <PostForum {...routeProps} isLoggedIn={!!token} posts={searchResults} token={token} setPosts={setPosts} buttonPopUp={buttonPopUp} setButtonPopUp={setButtonPopUp} search={search} setSearch={setSearch} searchResults={searchResults} setSearchResults={setSearchResults} setSelectedPost={setSelectedPost}/> } />
+    <Route path='/postforum' exact render={(routeProps) => <PostForum {...routeProps} isLoggedIn={!!token} posts={searchResults} token={token} setPosts={setPosts} search={search} setSearch={setSearch} searchResults={searchResults} setSearchResults={setSearchResults} setSelectedPost={setSelectedPost}/> } />
     <Route path='/postforum/:postID' exact render={(routeProps) => <SinglePost {...routeProps} message={message} setMessage={setMessage} posts={searchResults} selectedPost={selectedPost} setSelectedPost={setSelectedPost}/>} />
     <Route path='/newPost' exact render={(routeProps) => <NewPost {...routeProps} isLoggedIn={!!token} posts={posts} setPosts={setPosts} token={token} />} />
     <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken}/>} />
@@ -79,9 +79,3 @@ ReactDOM.render(
     </BrowserRouter>,
   document.getElementById('app')
 );
-
-// I'm confused in my PostForum => useEffect function that goes and grabs the posts on pageload.
-// When I console.log the data recieved from the fetch request, isAuthor reflects is true on posts I wrote, which is the behavior I want
-// Then I update my state with setPosts using that data that I recieved,
-// and when I console.log(posts) isAuthor's value is false for all posts, even the one I wrote that previously wasn't false.  
-// I must be over-riding the isAuthor value when I update my state, but I don't see where.

@@ -7,23 +7,13 @@ const PostForum = ({
     posts, token, setPosts, history, search, setSearch, isLoggedIn, 
 }) => {
     
-    const deletedPost = async (id) => {
-        await handleDelete(id, token);
+    const deletedPost = async (token, id) => {
+        const res = await handleDelete(token, id);
+        console.log(res);
         const postsList = posts.filter(post => post.id !== id);
-        console.log(postsList);
         setPosts([...postsList]);
         history.push('/postforum');
     }
-
-    useEffect(() => {
-        const getPosts = async () => {
-            const data = await handleFetchingPosts();
-            console.table(data.data.posts); //isAuthor is true
-            setPosts(data.data.posts)
-           console.table(posts); //isAuthor is false. How am I overwriting it????
-        }
-        getPosts();
-    }, [])
 
     return (
         <main>
@@ -37,8 +27,8 @@ const PostForum = ({
                     <>
                         {post.isAuthor ? 
                             <button onClick={async () => {
-                                deletedPost(post._id);
-                                const data = await handleFetchingPosts();
+                                deletedPost(token, post._id);
+                                const data = await handleFetchingPosts(token);
                                 setPosts(data.data.posts);
                             }}
                             className='btn btn-lg btn-primary btn-block m-4'
@@ -49,12 +39,12 @@ const PostForum = ({
                                 {isLoggedIn 
                                     ? history.push('/postforum/' + post._id)
                                     : history.push('/register')
-                        }
-                        }} 
-                        className='btn btn-lg btn-primary btn-block m-4'
-                        > 
-                        Send Message
-                        </button>
+                                }
+                            }} 
+                            className='btn btn-lg btn-primary btn-block m-4'
+                            > 
+                            Send Message
+                            </button>
                         }
                             
                      </>

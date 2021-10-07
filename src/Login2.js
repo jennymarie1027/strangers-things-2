@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { API_URL } from './constants'
-import { handleLogin, handleRegister, handleLogout} from './handleFuncs'
+import { handleLogin, handleRegister} from './handleFuncs'
 
 const Login2 = ({ isLoggedIn, setToken, match, history }) => {
     const [username, setUsername] = useState('');
@@ -17,13 +16,12 @@ const Login2 = ({ isLoggedIn, setToken, match, history }) => {
               e.preventDefault();
               if (match.url === '/register') {
                 try {
-                  const parsedData = await handleRegister(username, password, confirmedPassword, setToken)
+                  const parsedData = await handleRegister('POST', username, password, confirmedPassword)
                   setToken(parsedData.data.token);
                   window.localStorage.setItem('token', token);
                   setUsername(username);
                   setPassword(password);
                   history.push('/');
-
                 } catch (err) {
                   if (err) alert('That username is already taken')
                   setPassword('');
@@ -33,14 +31,16 @@ const Login2 = ({ isLoggedIn, setToken, match, history }) => {
               }
               if (match.url === '/login') {
                 try {
-                  const parsedData = await handleLogin(username, password, setToken);
+                  const parsedData = await handleLogin(username, password);
                   setToken(parsedData.data.token);
                   window.localStorage.setItem('token', parsedData.data.token)
                   setUsername(username);
                   setPassword(password);
                   history.push('/');
                 } catch (err) {
+                  console.log(err);
                   if (err) alert('That username & password combo does not exist');
+                  setToken('')
                   setPassword('');
                   setUsername('');
                 }

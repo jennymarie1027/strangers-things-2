@@ -2,26 +2,29 @@ import React, {useEffect, useState} from 'react'
 import { handleFetchingUserInfo } from './handleFuncs'
 
 
-const Homepage = ({ message, setMessage, isLoggedIn, history }) => {
+const Homepage = ({ token, message, setMessage,  }) => {
   const [pastposts, setPastPosts] = useState([]);
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('User');
  
 
-  // useEffect(() => {
-  //     async function getUserInfo() {
-  //       const data = await handleFetchingUserInfo();
-  //       setMessage(data.data.messages);
-  //       setUsername(data.data.username)
-  //       setPastPosts(data.data.posts)
-  //       console.log(message);
-
-  //     }
-  //     getUserInfo();
-  // }, [])
+  useEffect(() => {
+      async function getUserInfo() {
+        if (token) {
+          const data = await handleFetchingUserInfo(token);
+          console.log('data returned from handleFetchingUserInfo', data)
+          if (data.data) {
+            setMessage(data.data.messages);
+            setUsername(data.data.username)
+            setPastPosts(data.data.posts)
+          }
+        }
+      }
+      getUserInfo();
+  }, [token])
 
   return ( 
     <>
-    {isLoggedIn ?
+    {token ?
     <main style={{marginTop: 5 + 'em'}}>
       <h1>{username}'s Profile</h1>
       <h2 className='mt-5'>Your Inbox:</h2>
@@ -30,7 +33,7 @@ const Homepage = ({ message, setMessage, isLoggedIn, history }) => {
             <tr>
               <th scope='col'>Message From:</th>
               <th scope='col'>Message Content:</th>
-              <th scope='col'>Regarding Post:</th>
+              <th scope='col'>Regarding Your Post Titled:</th>
             </tr>
           </thead>
           <tbody>
@@ -52,9 +55,9 @@ const Homepage = ({ message, setMessage, isLoggedIn, history }) => {
         <table className='table table-striped' style={{border: 1 + 'px solid black'}}>
           <thead>
             <tr>
-              <th scope='col'>Post Title:</th>
+              <th scope='col'>Your Post Title:</th>
               <th scope='col'>Post Content:</th>
-              <th scope='col'>Price:</th>
+              <th scope='col'>Post Price:</th>
             </tr>
           </thead>
           <tbody>
@@ -64,7 +67,7 @@ const Homepage = ({ message, setMessage, isLoggedIn, history }) => {
                 <tr scope='row' key={post._id}>
                   <td>{post.title}</td>
                   <td>{post.description}</td>
-                  <td>{post.price}</td>
+                  <td>${post.price}</td>
                 </tr>
               ))
             ) : <tr>
@@ -73,7 +76,7 @@ const Homepage = ({ message, setMessage, isLoggedIn, history }) => {
           </tbody>
         </table>
       </main>
-      : null}
+      : <h2 style={{marginTop: 5 + 'em'}}>Loading...</h2>}
       </>
   )
 }

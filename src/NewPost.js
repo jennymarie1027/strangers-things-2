@@ -12,7 +12,8 @@ const NewPost = ({ setPosts, token, history, posts}) => {
         <article style={{marginTop: 20 + 'vh'}}>
             <h2 style={{textAlign: 'center', color: '#0275d8'}}>New Post</h2>
             <form onSubmit={async (e) => {
-                const data = await handleNewPostSubmit(e, token, newPostTitle, newPostBody, price, deliver)
+                e.preventDefault();
+                const data = await handleNewPostSubmit(token, newPostTitle, newPostBody, price, deliver)
                 setPosts([...posts, data.data.post]);
                 await handleFetchingPosts(token);
                 setNewPostBody('')
@@ -28,6 +29,7 @@ const NewPost = ({ setPosts, token, history, posts}) => {
                     id='postTitle'
                     required
                     placeholder="post title"
+                    type='text'
                     value={newPostTitle}
                     onChange={e => setNewPostTitle(e.target.value)}
                     className='form-control mb-2'
@@ -35,7 +37,7 @@ const NewPost = ({ setPosts, token, history, posts}) => {
                 <label htmlFor="price">Price:</label>
                 <input 
                     id='price'
-                    type='number'
+                    type='text'
                     placeholder="enter price"
                     required
                     value={price}
@@ -46,6 +48,7 @@ const NewPost = ({ setPosts, token, history, posts}) => {
                 <textarea 
                     id="newPostBody"
                     required
+                    type='text'
                     placeholder="describe the item you are selling"
                     value={newPostBody}
                     onChange={e => setNewPostBody(e.target.value)}
