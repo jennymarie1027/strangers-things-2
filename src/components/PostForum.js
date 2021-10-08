@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { handleDelete, handleFetchingPosts} from '../handleFuncs';
 import Search from './Search';
-import '../stylingsheets/PostForum.css'
+import '../stylingsheets/postforum.css'
 
 const PostForum = ({
     posts, token, setPosts, history, search, setSearch, isLoggedIn, setSearchResults
@@ -20,7 +20,7 @@ const PostForum = ({
      // this useEffect initiates an AJAX call whenever the token changes
   useEffect(() => {
     async function getPosts() {
-      const data = await handleFetchingPosts(token);
+        await handleFetchingPosts(token);
     }   
     getPosts(); 
   }, [posts])
@@ -31,12 +31,16 @@ const PostForum = ({
             <Search search={search} setSearch={setSearch} />
             {posts &&
             posts.map(post => (
-                <article style={{marginTop: 5 + 'vh'}} key={post._id}>
-                    <h1>{post.title}</h1>
-                    <p>Description: {post.description}</p>
-                    <p>Price: {post.price}</p>
-                    <p>Location: {post.location}</p>
-                    {post.willDeliver ? <p>Delivery Available</p> : <p>No Delivery Option</p>}
+                <article key={post._id}>
+                    <h3>{post.title}</h3>
+                    <ul className="postContainer">
+                        <li><span className='title'>Description:</span> {post.description}</li>
+                        <div className='postDetails'>
+                        <li><span className='title'>Price:</span> {post.price}</li>
+                        <li><span className='title'>Location:</span> {post.location}</li>
+                        <li><span className='title'>Delivery?</span>{post.willDeliver ? ' Yes' : ' No'}</li>
+                    </div>
+                    </ul>
                     <>
                         {post.isAuthor ? 
                             <button onClick={() => deletedPost(token, post._id)}
