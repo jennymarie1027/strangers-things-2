@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route } from 'react-router-dom'
-import Login2 from './Login2';
-import PostForum from './PostForum'
-import Profile from './Profile';
-import NewPost from './NewPost';
-import Logout from './Logout'
-import Header from './Header'
-import Footer from './Footer';
-import SinglePost from './SinglePost';
-import Homepage from './Homepage';
+import Login2 from './components/Login2';
+import PostForum from './components/PostForum'
+import Profile from './components/Profile';
+import NewPost from './components/NewPost';
+import Logout from './components/Logout'
+import Header from './components/Header'
+import Footer from './components/Footer';
+import SinglePost from './components/SinglePost';
+import Homepage from './components/Homepage';
 import { findPostById, handleFetchingPosts } from './handleFuncs';
 
 const Index = ({match}) => {

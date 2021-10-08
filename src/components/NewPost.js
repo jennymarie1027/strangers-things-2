@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { handleFetchingPosts, handleNewPostSubmit } from './handleFuncs';
+import { handleFetchingPosts, handleNewPostSubmit } from '../handleFuncs';
 
 const NewPost = ({ setPosts, token, history, posts, setSearchResults, searchResults}) => {
 
@@ -20,7 +20,6 @@ const NewPost = ({ setPosts, token, history, posts, setSearchResults, searchResu
                 e.preventDefault();
                 await handleNewPostSubmit(token, newPostTitle, newPostBody, price, deliver)
                 const data = await handleFetchingPosts(token);
-                // console.log(data.data.posts);
                 setPosts(data.data.posts);
                 setSearchResults(data.data.posts)
                 setNewPostBody('')
@@ -81,6 +80,7 @@ const NewPost = ({ setPosts, token, history, posts, setSearchResults, searchResu
                     onChange={() => setDeliver(!deliver)}
                 />
                 </div>
+                
                 <button className='btn btn-lg btn-primary btn-block mt-4' style={{width: 100 + '%'}}>Submit!</button>
             </form>
             

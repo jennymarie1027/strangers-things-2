@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { findPostById, handleSubmitMessage } from './handleFuncs';
+import { findPostById, handleSubmitMessage } from '../handleFuncs';
 
 const SinglePost = ({ selectedPost, setSelectedPost, match, history, posts, message, setMessage }) => {
     

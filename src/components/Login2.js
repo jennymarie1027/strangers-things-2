@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { handleLogin, handleRegister} from './handleFuncs'
+import { handleLogin, handleRegister} from '../handleFuncs'
 
 const Login2 = ({ isLoggedIn, setToken, match, history }) => {
     const [username, setUsername] = useState('');

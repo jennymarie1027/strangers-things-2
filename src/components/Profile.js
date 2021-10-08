@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { handleFetchingUserInfo } from './handleFuncs'
+import { handleFetchingUserInfo } from '../handleFuncs'
 
 
 const Profile = ({ token, message, setMessage,  }) => {

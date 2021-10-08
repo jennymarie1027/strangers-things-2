@@ -1,5 +1,5 @@
 import React from 'react'
-import { handleLogout } from './handleFuncs'
+import { handleLogout } from '../handleFuncs'
 
 const Logout = ({ setToken, history }) => {
     
