@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { findPostById, handleSubmitMessage } from '../handleFuncs';
+import '../stylingsheets/app.css'
+import '../stylingsheets/singlepost.css'
 
 const SinglePost = ({ selectedPost, setSelectedPost, match, history, posts, message, setMessage }) => {
     
@@ -12,11 +14,12 @@ const SinglePost = ({ selectedPost, setSelectedPost, match, history, posts, mess
     }, [posts])
 
     return (
-        <main style={{width: 100 + 'vw', margin: 'auto'}}>
-            <h1 style={{marginTop: 30 + 'vh'}}>{selectedPost.title}</h1>
+        <main className='singlePostContainer'>
+            <h1 className='marginTop'>{selectedPost.title}</h1>
             <p>Description: {selectedPost.description}</p>
             <p>Price: {selectedPost.price}</p>
-            <form onSubmit={(e => {
+            <form className='singlePostForm' 
+                onSubmit={(e => {
                 e.preventDefault()
                 const postID = match.params.postID;
                 const token = localStorage.getItem('token');
@@ -24,17 +27,17 @@ const SinglePost = ({ selectedPost, setSelectedPost, match, history, posts, mess
                 setMessage('');
                 history.push('/postforum')
             })}>
-                <label htmlFor="message">Message:</label>
-                <input 
+                <textarea 
                 type="text"
-                placeholder='enter message here'
+                placeholder='enter message here...'
+                autoFocus
                 required
                 id="message"
                 value={message}
                 onChange={e => setMessage(e.target.value)
                 }
                 />
-            <button>Send Message</button>
+            <button className='btn btn-lg btn-primary btn-block mt-4' >Send Message</button>
             </form>
         </main>
     )

@@ -1,0 +1,23 @@
+.singlePostContainer {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.singlePostContainer > h1 {
+    color: #0275d8;
+}
+
+.singlePostForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.singlePostForm > textarea {
+    width: 80%;
+    border: 5px solid #0275d8;
+}
