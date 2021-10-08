@@ -1,0 +1,38 @@
+.editedPostContainer {
+    display: flex;
+    height: 85vh;
+    width: 100vw;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.editedPostContainerDetails {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.editedPostContainerDetails > label {
+    margin-right: 0.5em;
+}
+
+.editedPostContainerDetails > input {
+    flex: 1;
+}
+
+.border {
+    background-color: #0275d8;
+    border: 10px solid black;
+    padding: 2.5em;
+    color: white;
+}
+
+.btn {
+    border: 1px solid black;
+}
+
+.btn:hover {
+    background-color: white;
+    color: black;
+}

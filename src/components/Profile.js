@@ -12,7 +12,6 @@ const Profile = ({ token, message, setMessage,  }) => {
       async function getUserInfo() {
         if (token) {
           const data = await handleFetchingUserInfo(token);
-          console.log('data returned from handleFetchingUserInfo', data)
           if (data.data) {
             setMessage(data.data.messages);
             setUsername(data.data.username)

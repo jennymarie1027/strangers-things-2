@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { findPostById, handlePostEdit } from '../handleFuncs';
+import { findPostById, handlePostEdit, handleFetchingPosts } from '../handleFuncs';
+import '../stylingsheets/app.css'
+import '../stylingsheets/editedpost.css'
 
-const EditedPost = ({token, posts, match, setSelectedPost, selectedPost}) => {
+const EditedPost = ({token, setSearchResults, setPosts, posts, match, history, setSelectedPost, selectedPost}) => {
 
     useEffect(() => {
+        console.log('inside useEffect');
         const postID = match.params.postID
-        if (posts){
-            const foundPost = findPostById(postID, posts)
-            console.log(foundPost);
+        const foundPost = findPostById(postID, posts)
+        if (foundPost) {
             setSelectedPost(foundPost);
+            console.log('foundPost inside editedPost component', foundPost);
         }
-    }, [])
-    const {title} = selectedPost;
-    const {description} = selectedPost;
-    const {price} = selectedPost;
-    const {location} = selectedPost;
-    const {willDeliver} = selectedPost;
+    }, [posts])
+    
+  
+    const {title, description, price, location, willDeliver} = selectedPost;
   
     const [editedTitle, setEditedTitle] = useState(title)
     const [editedDescription, setEditedDescription] = useState(description)
@@ -23,48 +24,72 @@ const EditedPost = ({token, posts, match, setSelectedPost, selectedPost}) => {
     const [editedLocation, setEditedLocation] = useState(location)
     const [editedDelivery, setEditedDelivery] = useState(willDeliver)
 
+    useEffect(() => {
+       setEditedTitle(selectedPost.title)
+       setEditedDescription(selectedPost.description)
+       setEditedPrice(selectedPost.price)
+       setEditedLocation(selectedPost.location)
+       setEditedDelivery(selectedPost.willDeliver);
+    }, [selectedPost])
+    
+
    async function edit(e) {
         e.preventDefault();
         const postID = match.params.postID
-        const data = await handlePostEdit(postID, token, editedTitle, editedDescription, editedPrice, editedLocation, editedDelivery)
-        console.log(data);
+        await handlePostEdit(postID, token, editedTitle, editedDescription, editedPrice, editedLocation, editedDelivery)
+        const data = await handleFetchingPosts(token);
+        setPosts(data.data.posts);
+        setSearchResults(data.data.posts)
+        history.push('/postforum');
     }
 
     return (
-        <div style={{marginTop: 7 + 'em'}}>
-            <form onSubmit={async (e) => edit(e)}>
-                <label>Post Title</label>
-                <input 
-                type='text'
-                value={editedTitle}
-                onChange={(e) => setEditedTitle(e.target.value)}
-                />
-                <label>Post Description</label>
-                <input 
-                type='text'
-                value={editedDescription}
-                onChange={(e) => setEditedDescription(e.target.value)}
-                />
-                 <label>Price</label>
-                <input 
-                type='text'
-                value={editedPrice}
-                onChange={(e) => setEditedPrice(e.target.value)}
-                />
-                 <label>Location</label>
-                <input 
-                type='text'
-                value={editedLocation}
-                onChange={(e) => setEditedLocation(e.target.value)}
-                />
-                <label htmlFor="deliver">Willing to Deliver</label>
-                <input 
-                    type="checkbox"
-                    id="deliver"
-                    value={editedDelivery}
-                    onChange={() => setEditedDelivery(!willDeliver)}
-                />
-                <button>Submit Changes</button>
+        <div className='marginTop'>
+            <form onSubmit={async (e) => edit(e)} className='editedPostContainer'>
+                <div className='border'>
+                <div className='editedPostContainerDetails'>
+                    <label>Post Title: </label>
+                    <input 
+                    type='text'
+                    value={editedTitle}
+                    onChange={(e) => setEditedTitle(e.target.value)}
+                    />
+                </div>
+                <div className='editedPostContainerDetails'>
+                    <label>Post Description: </label>
+                    <input 
+                    type='text'
+                    value={editedDescription}
+                    onChange={(e) => setEditedDescription(e.target.value)}
+                    />
+                </div>
+                <div className='editedPostContainerDetails'>
+                    <label>Price:</label>
+                    <input 
+                    type='text'
+                    value={editedPrice}
+                    onChange={(e) => setEditedPrice(e.target.value)}
+                    />
+                </div>
+                <div className='editedPostContainerDetails'>
+                    <label>Location: </label>
+                    <input 
+                    type='text'
+                    value={editedLocation}
+                    onChange={(e) => setEditedLocation(e.target.value)}
+                    />
+                </div>
+                <div className='editedPostContainerDetails'>
+                    <label htmlFor="deliver">Willing to Deliver?</label>
+                    <input 
+                        type="checkbox"
+                        id="deliver"
+                        value={editedDelivery}
+                        onChange={() => setEditedDelivery(!willDeliver)}
+                    />
+                </div>
+                <button className='btn btn-lg btn-block mt-4'>Submit Changes</button>
+                </div>
             </form>
         </div>
     )
