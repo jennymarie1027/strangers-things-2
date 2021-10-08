@@ -1,7 +1,7 @@
-const Search =  ({ search, setSearch}) => {
+export default  ({ search, setSearch}) => {
 
     return (
-        <form onSubmit={e => e.preventDefault()}>
+        <form>
             <label htmlFor="search">Search Posts</label>
             <input 
                 id='search'
@@ -16,4 +16,3 @@ const Search =  ({ search, setSearch}) => {
     )
 }
 
-export default Search

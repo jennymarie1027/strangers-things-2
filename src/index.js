@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter, Route } from 'react-router-dom'
 import Login2 from './Login2';
 import PostForum from './PostForum'
-import Homepage from './Homepage';
+import Profile from './Profile';
 import NewPost from './NewPost';
 import Logout from './Logout'
 import Header from './Header'
 import Footer from './Footer';
 import SinglePost from './SinglePost';
+import Homepage from './Homepage';
 import { findPostById, handleFetchingPosts } from './handleFuncs';
 
 const Index = ({match}) => {
@@ -16,8 +17,8 @@ const Index = ({match}) => {
   const [token, setToken] = useState('');
   const [posts, setPosts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedPost, setSelectedPost] = useState({})
   const [search, setSearch] = useState('');
+  const [selectedPost, setSelectedPost] = useState({})
   const [message, setMessage] = useState('');
 
   // this useEffect checks is there is a token in browser storage
@@ -39,8 +40,6 @@ const Index = ({match}) => {
     getPosts(); 
   }, [token])
 
-  
-  
   useEffect(() => {
     let filteredResults;
     {posts.length 
@@ -67,7 +66,8 @@ const Index = ({match}) => {
     <Route path='/postforum/:postID' exact render={(routeProps) => <SinglePost {...routeProps} message={message} setMessage={setMessage} posts={searchResults} selectedPost={selectedPost} setSelectedPost={setSelectedPost}/>} />
     <Route path='/newPost' exact render={(routeProps) => <NewPost {...routeProps} isLoggedIn={!!token} posts={posts} setPosts={setPosts} token={token} setSearchResults={setSearchResults} searchResults={searchResults} />} />
     <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken}/>} />
-    <Route path='/' exact render={(routeProps) => <Homepage {...routeProps} isLoggedIn={!!token} token={token} message={message} setMessage={setMessage} />} />
+    <Route path='/profile' exact render={(routeProps) => <Profile {...routeProps} isLoggedIn={!!token} token={token} message={message} setMessage={setMessage} />} />
+    <Route path='/' exact render={() => <Homepage token={token} />}/>
     <Footer />
   </BrowserRouter>
   )
