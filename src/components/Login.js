@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { handleLogin, handleRegister} from '../handleFuncs'
+import '../stylingsheets/login.css'
 
-const Login2 = ({ isLoggedIn, setToken, match, history }) => {
+const Login = ({ isLoggedIn, setToken, match, history }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmedPassword, setConfirmedPassword] = useState('');
@@ -108,4 +109,4 @@ const Login2 = ({ isLoggedIn, setToken, match, history }) => {
 
 
 
-export default Login2
+export default Login

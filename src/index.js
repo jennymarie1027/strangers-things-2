@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route } from 'react-router-dom'
-import Login2 from './components/Login2';
+import Login from './components/Login';
 import PostForum from './components/PostForum'
 import Profile from './components/Profile';
 import NewPost from './components/NewPost';
