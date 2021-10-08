@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import SinglePost from './components/SinglePost';
 import Homepage from './components/Homepage';
 import { findPostById, handleFetchingPosts } from './handleFuncs';
+import EditedPost from './components/EditedPost';
 
 const Index = ({match}) => {
   
@@ -63,6 +64,7 @@ const Index = ({match}) => {
     <Route path='/login' exact render={(routeProps) => <Login {...routeProps} setToken={setToken} isLoggedIn={!!token} /> } />
     <Route path='/register' exact render={(routeProps) => <Login {...routeProps} setToken={setToken} /> }/>
     <Route path='/postforum' exact render={(routeProps) => <PostForum {...routeProps} isLoggedIn={!!token} posts={searchResults} token={token} setPosts={setPosts} search={search} setSearch={setSearch} searchResults={searchResults} setSearchResults={setSearchResults} setSelectedPost={setSelectedPost}/> } />
+    <Route path='/editedpost/:postID' exact render={(routeProps) => <EditedPost {...routeProps} token={token} posts={posts} setSelectedPost={setSelectedPost} selectedPost={selectedPost}/>}/>
     <Route path='/postforum/:postID' exact render={(routeProps) => <SinglePost {...routeProps} message={message} setMessage={setMessage} posts={searchResults} selectedPost={selectedPost} setSelectedPost={setSelectedPost}/>} />
     <Route path='/newPost' exact render={(routeProps) => <NewPost {...routeProps} isLoggedIn={!!token} posts={posts} setPosts={setPosts} token={token} setSearchResults={setSearchResults} searchResults={searchResults} />} />
     <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken}/>} />

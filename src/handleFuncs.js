@@ -201,6 +201,32 @@ function findPostById(postId, arrayOfPosts) {
     return myPost || {};
 }
 
+async function handlePostEdit(postID, token, editedTitle, editedDescription, editedPrice, editedLocation, editedDelivery) {
+    try {
+        const res = await fetch(`${API_URL}/posts/${postID}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({
+                post: {
+                    title: editedTitle,
+                    description: editedDescription,
+                    price: editedPrice,
+                    location: editedLocation,
+                    willDeliver: editedDelivery
+                }
+            })
+        })
+        const data = await res.json();
+        return data;
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+
 export {
     handleHeaders,
     handleRegister,
@@ -212,5 +238,6 @@ export {
     handleSubmitMessage,
     handleNewPostSubmit,
     test,
-    findPostById
+    findPostById,
+    handlePostEdit
 }

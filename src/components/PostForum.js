@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { handleDelete, handleFetchingPosts} from '../handleFuncs';
 import Search from './Search';
+import EditedPost from './EditedPost';
 import '../stylingsheets/app.css'
 import '../stylingsheets/postforum.css'
 
@@ -18,7 +19,6 @@ const PostForum = ({
         history.push('/postforum');
     }
 
-     // this useEffect initiates an AJAX call whenever the token changes
   useEffect(() => {
     async function getPosts() {
         await handleFetchingPosts(token);
@@ -48,7 +48,9 @@ const PostForum = ({
                             <button onClick={() => deletedPost(token, post._id)}
                             className='btn btn-lg btn-primary btn-block'
                             >Delete</button>
-                            <button className="btn btn-lg btn-primary btn-block">Edit</button>
+                            <button  onClick={() => history.push('/editedpost/' + post._id)}
+                            className="btn btn-lg btn-primary btn-block"
+                            >Edit</button>
                         </>
                         :
                             <button onClick={() => {
