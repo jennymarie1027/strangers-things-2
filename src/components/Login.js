@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { handleLogin, handleRegister} from '../handleFuncs'
+import '../stylingsheets/app.css'
 import '../stylingsheets/login.css'
 
 const Login = ({ isLoggedIn, setToken, match, history }) => {
@@ -11,7 +12,7 @@ const Login = ({ isLoggedIn, setToken, match, history }) => {
     return (
         <>
         {!isLoggedIn && 
-        <div className='text-center mt-5' >
+        <div className='text-center formContainer' >
         <form 
           onSubmit={async (e) => {
               e.preventDefault();
@@ -47,7 +48,7 @@ const Login = ({ isLoggedIn, setToken, match, history }) => {
                 }
               }
           }}
-          style={{maxWidth: 50 + 'vw', margin: 'auto', marginTop: 20 + 'vh'}}
+          
         >
           <h1 className='m-3 '>Please Sign In</h1>
             <div>
