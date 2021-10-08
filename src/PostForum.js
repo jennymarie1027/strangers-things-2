@@ -4,7 +4,7 @@ import Search from './Search';
 import './PostForum.css'
 
 const PostForum = ({
-    posts, token, setPosts, history, search, setSearch, isLoggedIn, 
+    posts, token, setPosts, history, search, setSearch, isLoggedIn, setSearchResults
 }) => {
     
     const deletedPost = async (token, id) => {
@@ -12,8 +12,19 @@ const PostForum = ({
         console.log(res);
         const postsList = posts.filter(post => post.id !== id);
         setPosts([...postsList]);
+        const data = await handleFetchingPosts(token);
+        setSearchResults(data.data.posts);
         history.push('/postforum');
     }
+
+     // this useEffect initiates an AJAX call whenever the token changes
+  useEffect(() => {
+    async function getPosts() {
+      const data = await handleFetchingPosts(token);
+    }   
+    getPosts(); 
+  }, [posts])
+
 
     return (
         <main>
@@ -22,18 +33,15 @@ const PostForum = ({
             posts.map(post => (
                 <article style={{marginTop: 5 + 'vh'}} key={post._id}>
                     <h1>{post.title}</h1>
-                    <p>{post.description}</p>
-                    <p>{post.price}</p>
+                    <p>Description: {post.description}</p>
+                    <p>Price: {post.price}</p>
+                    <p>Location: {post.location}</p>
+                    {post.willDeliver ? <p>Delivery Available</p> : <p>No Delivery Option</p>}
                     <>
                         {post.isAuthor ? 
-                            <button onClick={async () => {
-                                deletedPost(token, post._id);
-                                const data = await handleFetchingPosts(token);
-                                setPosts(data.data.posts);
-                            }}
+                            <button onClick={() => deletedPost(token, post._id)}
                             className='btn btn-lg btn-primary btn-block m-4'
                             >Delete</button>
-                        
                         :
                             <button onClick={() => {
                                 {isLoggedIn 
@@ -42,14 +50,9 @@ const PostForum = ({
                                 }
                             }} 
                             className='btn btn-lg btn-primary btn-block m-4'
-                            > 
-                            Send Message
-                            </button>
-                        }
-                            
+                            > Send Message</button>
+                        }    
                      </>
-                      
-                    
                 </article>
             ))}
         </main>
@@ -57,6 +60,3 @@ const PostForum = ({
 }
 
 export default PostForum
-
-{/* <button onClick={() => setButtonPopUp(true) }> */}
-// {buttonPopUp ? <Popup trigger={buttonPopUp} setButtonPopUp={setButtonPopUp} id={post._id} token={token}/> : null}

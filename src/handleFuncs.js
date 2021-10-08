@@ -116,7 +116,7 @@ async function handleFetchingUserInfo(token) {
     }
 }
 
-const handleNewPostSubmit = async (token, newPostTitle, newPostBody, price, deliver) => {
+const handleNewPostSubmit = async (token, newPostTitle, newPostBody, price, location, deliver) => {
     try {
         const res = await fetch(`${API_URL}/posts`, {
             method: 'POST',
@@ -129,6 +129,7 @@ const handleNewPostSubmit = async (token, newPostTitle, newPostBody, price, deli
                     title: newPostTitle,
                     description: newPostBody,
                     price: price,
+                    location: location,
                     willDeliver: deliver
                 }
             })

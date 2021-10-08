@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route } from 'react-router-dom'
-import { API_URL } from './constants';
 import Login2 from './Login2';
 import PostForum from './PostForum'
 import Homepage from './Homepage';
@@ -16,8 +15,8 @@ const Index = ({match}) => {
   
   const [token, setToken] = useState('');
   const [posts, setPosts] = useState([]);
-  const [selectedPost, setSelectedPost] = useState({})
   const [searchResults, setSearchResults] = useState([]);
+  const [selectedPost, setSelectedPost] = useState({})
   const [search, setSearch] = useState('');
   const [message, setMessage] = useState('');
 
@@ -28,9 +27,9 @@ const Index = ({match}) => {
       setToken(storedToken);
     }
     if (!storedToken) setToken('');
-  })
+  }, [])
   
-  // this useEffect initiates an AJAX call on page load to go and get the posts
+  // this useEffect initiates an AJAX call whenever the token changes
   useEffect(() => {
     async function getPosts() {
       const data = await handleFetchingPosts(token);
@@ -39,6 +38,8 @@ const Index = ({match}) => {
     }   
     getPosts(); 
   }, [token])
+
+  
   
   useEffect(() => {
     let filteredResults;
@@ -64,7 +65,7 @@ const Index = ({match}) => {
     <Route path='/register' exact render={(routeProps) => <Login2 {...routeProps} setToken={setToken} /> }/>
     <Route path='/postforum' exact render={(routeProps) => <PostForum {...routeProps} isLoggedIn={!!token} posts={searchResults} token={token} setPosts={setPosts} search={search} setSearch={setSearch} searchResults={searchResults} setSearchResults={setSearchResults} setSelectedPost={setSelectedPost}/> } />
     <Route path='/postforum/:postID' exact render={(routeProps) => <SinglePost {...routeProps} message={message} setMessage={setMessage} posts={searchResults} selectedPost={selectedPost} setSelectedPost={setSelectedPost}/>} />
-    <Route path='/newPost' exact render={(routeProps) => <NewPost {...routeProps} isLoggedIn={!!token} posts={posts} setPosts={setPosts} token={token} />} />
+    <Route path='/newPost' exact render={(routeProps) => <NewPost {...routeProps} isLoggedIn={!!token} posts={posts} setPosts={setPosts} token={token} setSearchResults={setSearchResults} searchResults={searchResults} />} />
     <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken}/>} />
     <Route path='/' exact render={(routeProps) => <Homepage {...routeProps} isLoggedIn={!!token} token={token} message={message} setMessage={setMessage} />} />
     <Footer />

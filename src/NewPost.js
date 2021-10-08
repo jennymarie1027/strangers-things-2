@@ -1,21 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { handleFetchingPosts, handleNewPostSubmit } from './handleFuncs';
 
-const NewPost = ({ setPosts, token, history, posts}) => {
+const NewPost = ({ setPosts, token, history, posts, setSearchResults, searchResults}) => {
 
     const [newPostTitle, setNewPostTitle] = useState('');
-    const [newPostBody, setNewPostBody] = useState('');
     const [price, setPrice] = useState(0);
+    const [location, setLocation] = useState('');
+    const [newPostBody, setNewPostBody] = useState('');
     const [deliver, setDeliver] = useState(false);
+
+    useEffect(() => {
+        setPosts(posts);
+    }, [searchResults])
 
     return (
         <article style={{marginTop: 20 + 'vh'}}>
             <h2 style={{textAlign: 'center', color: '#0275d8'}}>New Post</h2>
             <form onSubmit={async (e) => {
                 e.preventDefault();
-                const data = await handleNewPostSubmit(token, newPostTitle, newPostBody, price, deliver)
-                setPosts([...posts, data.data.post]);
-                await handleFetchingPosts(token);
+                await handleNewPostSubmit(token, newPostTitle, newPostBody, price, deliver)
+                const data = await handleFetchingPosts(token);
+                // console.log(data.data.posts);
+                setPosts(data.data.posts);
+                setSearchResults(data.data.posts)
                 setNewPostBody('')
                 setNewPostTitle('')
                 setPrice(0)
@@ -42,6 +49,16 @@ const NewPost = ({ setPosts, token, history, posts}) => {
                     required
                     value={price}
                     onChange={e => setPrice(e.target.value)}
+                    className='form-control mb-2'
+                />
+                <label htmlFor="location">Location:</label>
+                <input 
+                    id='location'
+                    type='text'
+                    placeholder="enter location"
+                    required
+                    value={location}
+                    onChange={e => setLocation(e.target.value)}
                     className='form-control mb-2'
                 />
                 <label htmlFor="newPostBody">Description:</label>
