@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { handleFetchingPosts, handleNewPostSubmit } from '../handleFuncs';
+import '../stylingsheets/app.css'
+import '../stylingsheets/newpost.css'
 
 const NewPost = ({ setPosts, token, history, posts, setSearchResults, searchResults}) => {
 
@@ -14,8 +16,8 @@ const NewPost = ({ setPosts, token, history, posts, setSearchResults, searchResu
     }, [searchResults])
 
     return (
-        <article style={{marginTop: 20 + 'vh'}}>
-            <h2 style={{textAlign: 'center', color: '#0275d8'}}>New Post</h2>
+        <article className='marginTop newPostContainer'>
+            <h2 className='primaryColor'>New Post</h2>
             <form onSubmit={async (e) => {
                 e.preventDefault();
                 await handleNewPostSubmit(token, newPostTitle, newPostBody, price, deliver)
@@ -28,7 +30,6 @@ const NewPost = ({ setPosts, token, history, posts, setSearchResults, searchResu
                 setDeliver(false)
                 history.push('/postforum');
                 }}
-                style={{maxWidth: 50 + 'vw', margin: 'auto'}}
                 >
                 <label htmlFor="postTitle">Post Title:</label>
                 <input 
@@ -69,7 +70,6 @@ const NewPost = ({ setPosts, token, history, posts, setSearchResults, searchResu
                     value={newPostBody}
                     onChange={e => setNewPostBody(e.target.value)}
                     className='form-control mb-2'
-                    style={{height: 20 + 'vh'}}
                 />
                 <div>
                 <label htmlFor="deliver">Willing to Deliver</label>
@@ -81,7 +81,7 @@ const NewPost = ({ setPosts, token, history, posts, setSearchResults, searchResu
                 />
                 </div>
                 
-                <button className='btn btn-lg btn-primary btn-block mt-4' style={{width: 100 + '%'}}>Submit!</button>
+                <button className='btn btn-lg btn-primary btn-block mt-4'>Submit!</button>
             </form>
             
         </article>
