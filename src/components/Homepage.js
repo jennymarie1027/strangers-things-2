@@ -8,15 +8,15 @@ const Homepage = ({token}) => {
         <main className='marginTop homepage-container'>
             <h1>Welcome To Stranger's Things</h1>
             <div className='homepageBtn-container'>
-            <button className='homepageBtn'><Link to='/postforum'>View Posts</Link></button>
-            
-            {token ? <>
-            <button className='homepageBtn'><Link to='/profile'>View Profile</Link></button>
-            <button className='homepageBtn'><Link to='/newpost'>Create New Post</Link></button>
-            <button className='homepageBtn'><Link to='/logout'>Logout</Link></button>
-            </>
-            : <button className='homepageBtn'><Link to='/login'>Login</Link></button>
-            }
+                <button className='homepageBtn'><Link to='/postforum'>View Posts</Link></button>
+                {token 
+                ? <>
+                    <button className='homepageBtn'><Link to='/profile'>View Profile</Link></button>
+                    <button className='homepageBtn'><Link to='/newpost'>Create New Post</Link></button>
+                    <button className='homepageBtn'><Link to='/logout'>Logout</Link></button>
+                </>
+                :   <button className='homepageBtn'><Link to='/login'>Login</Link></button>
+                }
                
             </div>
         </main>

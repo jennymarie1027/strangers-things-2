@@ -37,10 +37,10 @@ const PostForum = ({
                     <ul className="postContainer">
                         <li><span className='title'>Description:</span> {post.description}</li>
                         <div className='postDetails'>
-                        <li><span className='title'>Price:</span> {post.price}</li>
-                        <li><span className='title'>Location:</span> {post.location}</li>
-                        <li><span className='title'>Delivery Available?</span>{post.willDeliver ? ' Yes' : ' No'}</li>
-                    </div>
+                            <li><span className='title'>Price:</span> {post.price}</li>
+                            <li><span className='title'>Location:</span> {post.location}</li>
+                            <li><span className='title'>Delivery Available?</span>{post.willDeliver ? ' Yes' : ' No'}</li>
+                        </div>
                     </ul>
                     <>
                         {post.isAuthor ? 

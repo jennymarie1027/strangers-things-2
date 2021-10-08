@@ -12,7 +12,7 @@ const Login = ({ isLoggedIn, setToken, match, history }) => {
     return (
         <>
         {!isLoggedIn && 
-        <div className='text-center formContainer' >
+        <main className='text-center formContainer' >
         <form 
           onSubmit={async (e) => {
               e.preventDefault();
@@ -50,7 +50,7 @@ const Login = ({ isLoggedIn, setToken, match, history }) => {
           }}
           
         >
-          <h1 className='m-3 '>Please Sign In</h1>
+          <h1 className='m-3 '>{match.url === '/login' ? 'Please Sign In' : 'Make An Account'}</h1>
             <div>
                 {/* <label className='sr-only' htmlFor='username'>Username</label> */}
                 <input
@@ -101,7 +101,7 @@ const Login = ({ isLoggedIn, setToken, match, history }) => {
                 }
           
         </form>
-        </div>
+        </main>
         }
         </>
         

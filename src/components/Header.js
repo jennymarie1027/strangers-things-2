@@ -18,8 +18,7 @@ const Header = ({ token }) => {
                 className='navbar-toggler'
                 aria-controls='navbarNav'
                 aria-expanded='false'
-                aria-label='toggle navigation'
-            >
+                aria-label='toggle navigation'>
                 <span className='navbar-toggler-icon'></span>
             </button>
             <div className='collapse navbar-collapse' id='navbarNav'>

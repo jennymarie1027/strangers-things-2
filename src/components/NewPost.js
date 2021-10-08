@@ -80,7 +80,6 @@ const NewPost = ({ setPosts, token, history, posts, setSearchResults, searchResu
                     onChange={() => setDeliver(!deliver)}
                 />
                 </div>
-                
                 <button className='btn btn-lg btn-primary btn-block mt-4'>Submit!</button>
             </form>
             
