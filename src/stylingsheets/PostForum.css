@@ -1,12 +1,12 @@
 
 
-main {
+.postForumContainer {
     font-size: 1.3em;
     margin: 15vh auto 15vh auto;
     max-width: 75vw;
 }
 
-article {
+.postForumArticle {
     background-color: white;
     padding: 1.5em;
     margin-top: 5vh;
@@ -49,9 +49,4 @@ h3 {
 
 .title {
     font-weight: 700;
-}
-
-ul:nth-child(1) {
-    align-self: flex-start;
-    color: magenta;
 }

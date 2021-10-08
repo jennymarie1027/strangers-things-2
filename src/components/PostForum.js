@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { handleDelete, handleFetchingPosts} from '../handleFuncs';
 import Search from './Search';
 import '../stylingsheets/app.css'
+import '../stylingsheets/postforum.css'
 
 const PostForum = ({
     posts, token, setPosts, history, search, setSearch, isLoggedIn, setSearchResults
@@ -27,11 +28,11 @@ const PostForum = ({
 
 
     return (
-        <main>
+        <main className='postForumContainer'>
             <Search search={search} setSearch={setSearch} />
             {posts &&
             posts.map(post => (
-                <article key={post._id}>
+                <article className='postForumArticle' key={post._id}>
                     <h3>{post.title}</h3>
                     <ul className="postContainer">
                         <li><span className='title'>Description:</span> {post.description}</li>
