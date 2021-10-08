@@ -6,15 +6,10 @@
     flex-direction: column;
 }
 
-h2 {
-    text-align: center;
-
-}
-
-form {
+.newPostContainer > form {
     min-width: 55vw;
 }
 
-textarea {
+.newPostContainer > textarea {
     height: 20vh;
 }

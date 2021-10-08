@@ -13,7 +13,11 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    
+}
+
+.postForumArticle > button {
+    align-self: flex-start;
+    margin-left: 1.5em;
 }
 
 .postContainer {
@@ -30,21 +34,17 @@
     justify-content: center;
 }
 
-button {
-    align-self: flex-start;
-}
 
-ul {
+.postForumArticle > ul {
     list-style-type: none;
 }
 
-li {
+.postDetails > li {
     margin: 1em;
 }
 
-h3 {
+.postForumArticle > h3 {
     max-width: 250px;
-    align-self: center;
 }
 
 .title {

@@ -39,13 +39,13 @@ const PostForum = ({
                         <div className='postDetails'>
                         <li><span className='title'>Price:</span> {post.price}</li>
                         <li><span className='title'>Location:</span> {post.location}</li>
-                        <li><span className='title'>Delivery?</span>{post.willDeliver ? ' Yes' : ' No'}</li>
+                        <li><span className='title'>Delivery Available?</span>{post.willDeliver ? ' Yes' : ' No'}</li>
                     </div>
                     </ul>
                     <>
                         {post.isAuthor ? 
                             <button onClick={() => deletedPost(token, post._id)}
-                            className='btn btn-lg btn-primary btn-block m-4'
+                            className='btn btn-lg btn-primary btn-block'
                             >Delete</button>
                         :
                             <button onClick={() => {
@@ -54,7 +54,7 @@ const PostForum = ({
                                     : history.push('/register')
                                 }
                             }} 
-                            className='btn btn-lg btn-primary btn-block m-4'
+                            className='btn btn-lg btn-primary btn-block'
                             > Send Message</button>
                         }    
                      </>
