@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import '../stylingsheets/app.css'
+import '../stylingsheets/homepage.css'
 
 const Homepage = ({token}) => {
     return (

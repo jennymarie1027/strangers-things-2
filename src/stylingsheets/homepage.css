@@ -1,0 +1,30 @@
+.homepage-container {
+    color: #0275d8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 70vh;
+}
+
+.homepageBtn-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50vw;
+    margin-top: 2em;
+}
+
+.homepageBtn {
+    padding: 2em;
+    text-decoration: none;
+    /* background-color: #0275d8; */
+    border-radius: 1em;
+    border: none;
+}
+
+.homepageBtn-container > a {
+    color: white;
+    text-decoration: none;
+    font-size: large;
+    font-weight: 700;
+}
