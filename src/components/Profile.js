@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { handleFetchingUserInfo } from '../handleFuncs'
-
+import '../stylingsheets/app.css'
+import '../stylingsheets/profile.css'
 
 const Profile = ({ token, message, setMessage,  }) => {
   const [pastposts, setPastPosts] = useState([]);
@@ -25,7 +26,7 @@ const Profile = ({ token, message, setMessage,  }) => {
   return ( 
     <>
     {token ?
-    <main style={{marginTop: 5 + 'em'}}>
+    <main className='marginTop profileContainer'>
       <h1>{username}'s Profile</h1>
       <h2 className='mt-5'>Your Inbox:</h2>
         <table className='table table-striped mb-3' style={{border: 1 + 'px solid black'}}>
