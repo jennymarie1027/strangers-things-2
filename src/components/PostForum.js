@@ -44,9 +44,12 @@ const PostForum = ({
                     </ul>
                     <>
                         {post.isAuthor ? 
+                        <>
                             <button onClick={() => deletedPost(token, post._id)}
                             className='btn btn-lg btn-primary btn-block'
                             >Delete</button>
+                            <button className="btn btn-lg btn-primary btn-block">Edit</button>
+                        </>
                         :
                             <button onClick={() => {
                                 {isLoggedIn 

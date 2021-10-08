@@ -20,7 +20,7 @@ const NewPost = ({ setPosts, token, history, posts, setSearchResults, searchResu
             <h2 className='primaryColor'>New Post</h2>
             <form onSubmit={async (e) => {
                 e.preventDefault();
-                await handleNewPostSubmit(token, newPostTitle, newPostBody, price, deliver)
+                await handleNewPostSubmit(token, newPostTitle, newPostBody, price, location, deliver)
                 const data = await handleFetchingPosts(token);
                 setPosts(data.data.posts);
                 setSearchResults(data.data.posts)
