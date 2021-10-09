@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { findPostById, handlePostEdit, handleFetchingPosts } from '../handleFuncs';
-import '../stylingsheets/app.css'
-import '../stylingsheets/editedpost.css'
+
 
 const EditedPost = ({token, setSearchResults, setPosts, posts, match, history, setSelectedPost, selectedPost}) => {
 

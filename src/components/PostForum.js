@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { handleDelete, handleFetchingPosts} from '../handleFuncs';
 import Search from './Search';
-import '../stylingsheets/app.css'
-import '../stylingsheets/postforum.css'
+
 
 const PostForum = ({
     isLoggedIn, token, posts, setPosts, search, setSearch, setSearchResults, history,

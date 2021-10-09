@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { handleFetchingPosts, handleNewPostSubmit } from '../handleFuncs';
-import '../stylingsheets/app.css'
-import '../stylingsheets/newpost.css'
+
 
 const NewPost = ({ setPosts, token, history, posts, setSearchResults, searchResults}) => {
 

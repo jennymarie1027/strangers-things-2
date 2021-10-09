@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom';
-// import '../stylingsheets/app.css'
-// import '../stylingsheets/header.css'
 
 const Header = ({ token }) => {
     return (

@@ -1,6 +1,4 @@
 
-import '../stylingsheets/footer.css'
-
 const Footer = () => {
     return (
         <footer className='fixed-bottom'>

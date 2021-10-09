@@ -1,0 +1,10 @@
+@import './stylingsheets/app.css';
+@import './stylingsheets/editedpost.css';
+@import './stylingsheets/footer.css';
+@import './stylingsheets/homepage.css';
+@import './stylingsheets/login.css';
+@import './stylingsheets/logout.css';
+@import './stylingsheets/newpost.css';
+@import './stylingsheets/postforum.css';
+@import './stylingsheets/profile.css';
+@import './stylingsheets/singlepost.css';

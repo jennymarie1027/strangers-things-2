@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { handleFetchingUserInfo } from '../handleFuncs'
-import '../stylingsheets/app.css'
-import '../stylingsheets/profile.css'
+
 
 const Profile = ({ token, message, setMessage,  }) => {
   const [pastposts, setPastPosts] = useState([]);

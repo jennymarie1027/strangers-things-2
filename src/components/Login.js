@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { handleLogin, handleRegister} from '../handleFuncs'
-import '../stylingsheets/app.css'
-import '../stylingsheets/login.css'
+
 
 const Login = ({ isLoggedIn, setToken, match, history }) => {
     const [username, setUsername] = useState('');

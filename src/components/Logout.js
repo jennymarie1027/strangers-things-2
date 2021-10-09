@@ -1,7 +1,6 @@
 import React from 'react'
 import { handleLogout } from '../handleFuncs'
-import '../stylingsheets/app.css'
-import '../stylingsheets/logout.css'
+
 
 const Logout = ({ setToken, history }) => {
     
