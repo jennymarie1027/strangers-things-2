@@ -18,14 +18,14 @@ const Login = ({ isLoggedIn, setToken, match, history }) => {
               e.preventDefault();
               if (match.url === '/register') {
                 try {
-                  const parsedData = await handleRegister('POST', username, password, confirmedPassword)
+                  const parsedData = await handleRegister(username, password, confirmedPassword)
                   setToken(parsedData.data.token);
-                  window.localStorage.setItem('token', token);
+                  // window.localStorage.setItem('token', token);
                   setUsername(username);
                   setPassword(password);
                   history.push('/');
                 } catch (err) {
-                  if (err) alert('That username is already taken')
+                  console.error(err);
                   setPassword('');
                   setUsername('');
                 }

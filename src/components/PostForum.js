@@ -6,7 +6,7 @@ import '../stylingsheets/app.css'
 import '../stylingsheets/postforum.css'
 
 const PostForum = ({
-    posts, token, setPosts, history, search, setSearch, isLoggedIn, setSearchResults
+    isLoggedIn, token, posts, setPosts, search, setSearch, setSearchResults, history,
 }) => {
     
     const deletedPost = async (token, id) => {

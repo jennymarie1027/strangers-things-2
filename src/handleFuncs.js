@@ -32,7 +32,7 @@ const handleFetchingPosts = async (token) => {
         } catch(err) {
             console.error(err);
         }
-    } else {
+    } else if (token) {
         try {
             const res = await fetch(`${API_URL}/posts`, {
                 method: 'GET',

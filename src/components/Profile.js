@@ -13,6 +13,7 @@ const Profile = ({ token, message, setMessage,  }) => {
         if (token) {
           const data = await handleFetchingUserInfo(token);
           if (data.data) {
+            console.log(data.data);
             setMessage(data.data.messages);
             setUsername(data.data.username)
             setPastPosts(data.data.posts)
@@ -40,10 +41,11 @@ const Profile = ({ token, message, setMessage,  }) => {
             {message
             ? (
               message.map((msg) => (
+                // {msg.fromUser.username !== username ? : null}
                   <tr scope='row' key={msg._id}>
-                  <td>{msg.fromUser.username}</td>
-                  <td>{msg.content}</td>
-                  <td>{msg.post.title}</td>
+                  <td>{msg.fromUser.username !== username ? msg.fromUser.username : null}</td>
+                  <td>{msg.fromUser.username !== username ? msg.content : null}</td>
+                  <td>{msg.fromUser.username !== username ? msg.post.title : null}</td>
                   </tr>
               ))
             ) : <tr>
