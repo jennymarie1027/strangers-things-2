@@ -1,12 +1,12 @@
 import React from 'react'
 import { handleLogout } from '../handleFuncs'
 import '../stylingsheets/app.css'
-import '../stylingsheets/login.css'
+import '../stylingsheets/logout.css'
 
 const Logout = ({ setToken, history }) => {
     
     return  ( 
-        <main className='formContainer'>
+        <main className='logoutFormContainer marginTop'>
             <h1>Oh No! You're Leaving...  Are You Sure?</h1>
             <button className='btn btn-lg btn-primary btn-block mt-4' 
                 onClick={() => {

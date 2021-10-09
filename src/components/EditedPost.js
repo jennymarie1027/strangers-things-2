@@ -44,9 +44,10 @@ const EditedPost = ({token, setSearchResults, setPosts, posts, match, history, s
     }
 
     return (
-        <div className='marginTop'>
-            <form onSubmit={async (e) => edit(e)} className='editedPostContainer'>
-                <div className='border'>
+        <div className='marginTop editedPostContainer'>
+            <form onSubmit={async (e) => edit(e)}>
+                <div className='editedPostFormContainer'>
+                <h1 className='heading'>Edit Post Here</h1>
                 <div className='editedPostContainerDetails'>
                     <label>Post Title: </label>
                     <input 
@@ -88,7 +89,7 @@ const EditedPost = ({token, setSearchResults, setPosts, posts, match, history, s
                         onChange={() => setEditedDelivery(!willDeliver)}
                     />
                 </div>
-                <button className='btn btn-lg btn-block mt-4'>Submit Changes</button>
+                <button className='editPostBtn btn btn-lg btn-block mt-4'>Submit Changes</button>
                 </div>
             </form>
         </div>

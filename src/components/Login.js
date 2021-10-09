@@ -12,7 +12,7 @@ const Login = ({ isLoggedIn, setToken, match, history }) => {
     return (
         <>
         {!isLoggedIn && 
-        <main className='text-center formContainer' >
+        <main className='text-center loginFormContainer' >
         <form 
           onSubmit={async (e) => {
               e.preventDefault();

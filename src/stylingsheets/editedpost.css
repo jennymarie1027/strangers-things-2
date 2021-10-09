@@ -1,7 +1,6 @@
 .editedPostContainer {
     display: flex;
     height: 85vh;
-    width: 100vw;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -17,22 +16,30 @@
     margin-right: 0.5em;
 }
 
-.editedPostContainerDetails > input {
-    flex: 1;
-}
-
-.border {
-    background-color: #0275d8;
+.editedPostFormContainer {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(2, 117, 216, 0.3);
     border: 10px solid black;
     padding: 2.5em;
     color: white;
+    font-weight: 700;
+    font-size: 1.3em;
 }
 
-.btn {
+.editPostBtn{
     border: 1px solid black;
 }
 
-.btn:hover {
+.editPostBtn:hover {
     background-color: white;
     color: black;
+}
+
+.heading {
+    margin-bottom: 2em;
+    text-decoration: underline;
 }
