@@ -23,8 +23,9 @@ const NewPost = ({ setPosts, token, history, posts, setSearchResults, searchResu
                 e.preventDefault();
                 await handleNewPostSubmit(token, newPostTitle, newPostBody, price, location, deliver)
                 const data = await handleFetchingPosts(token);
-                setPosts(data.data.posts);
-                setSearchResults(data.data.posts)
+                const reversedPosts = data.data.posts.reverse();
+                setPosts(reversedPosts);
+                setSearchResults(reversedPosts)
                 setNewPostBody('')
                 setNewPostTitle('')
                 setPrice(0)
@@ -62,7 +63,6 @@ const NewPost = ({ setPosts, token, history, posts, setSearchResults, searchResu
                         id='location'
                         type='text'
                         placeholder="enter location"
-                        required
                         value={location}
                         onChange={e => setLocation(e.target.value)}
                         className='form-control mb-2'

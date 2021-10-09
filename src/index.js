@@ -36,8 +36,9 @@ const Index = ({match}) => {
   useEffect(() => {
     async function getPosts() {
       const data = await handleFetchingPosts(token);
-      setPosts(data.data.posts);
-      setSearchResults(data.data.posts);
+      const reversedPosts = data.data.posts.reverse();
+      setPosts(reversedPosts);
+      setSearchResults(reversedPosts);
     }   
     getPosts(); 
   }, [token])

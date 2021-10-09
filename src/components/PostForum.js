@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { handleDelete, handleFetchingPosts} from '../handleFuncs';
 import Search from './Search';
-import EditedPost from './EditedPost';
 import '../stylingsheets/app.css'
 import '../stylingsheets/postforum.css'
 
@@ -13,9 +12,10 @@ const PostForum = ({
         const res = await handleDelete(token, id);
         console.log(res);
         const postsList = posts.filter(post => post.id !== id);
-        setPosts([...postsList]);
+        setPosts(...postsList);
         const data = await handleFetchingPosts(token);
-        setSearchResults(data.data.posts);
+        const reversedPosts = data.data.posts.reverse();
+        setSearchResults(reversedPosts);
         history.push('/postforum');
     }
 
